@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		47E1FCC71BFD2B7700463F7F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E1FCC61BFD2B7700463F7F /* main.m */; };
+		47E1FCCA1BFD2B7700463F7F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E1FCC91BFD2B7700463F7F /* AppDelegate.m */; };
+		47E1FCCD1BFD2B7700463F7F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E1FCCC1BFD2B7700463F7F /* ViewController.m */; };
+		47E1FCD01BFD2B7700463F7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCCE1BFD2B7700463F7F /* Main.storyboard */; };
+		47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD11BFD2B7700463F7F /* Assets.xcassets */; };
+		47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD31BFD2B7700463F7F /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		47E1FCC21BFD2B7700463F7F /* serval-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "serval-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47E1FCC61BFD2B7700463F7F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		47E1FCC81BFD2B7700463F7F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		47E1FCC91BFD2B7700463F7F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		47E1FCCB1BFD2B7700463F7F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		47E1FCCC1BFD2B7700463F7F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		47E1FCCF1BFD2B7700463F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		47E1FCD11BFD2B7700463F7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		47E1FCD41BFD2B7700463F7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		47E1FCD61BFD2B7700463F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		47E1FCBF1BFD2B7700463F7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		47E1FCB91BFD2B7700463F7F = {
+			isa = PBXGroup;
+			children = (
+				47E1FCC41BFD2B7700463F7F /* serval-ios */,
+				47E1FCC31BFD2B7700463F7F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		47E1FCC31BFD2B7700463F7F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				47E1FCC21BFD2B7700463F7F /* serval-ios.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		47E1FCC41BFD2B7700463F7F /* serval-ios */ = {
+			isa = PBXGroup;
+			children = (
+				47E1FCC81BFD2B7700463F7F /* AppDelegate.h */,
+				47E1FCC91BFD2B7700463F7F /* AppDelegate.m */,
+				47E1FCCB1BFD2B7700463F7F /* ViewController.h */,
+				47E1FCCC1BFD2B7700463F7F /* ViewController.m */,
+				47E1FCCE1BFD2B7700463F7F /* Main.storyboard */,
+				47E1FCD11BFD2B7700463F7F /* Assets.xcassets */,
+				47E1FCD31BFD2B7700463F7F /* LaunchScreen.storyboard */,
+				47E1FCD61BFD2B7700463F7F /* Info.plist */,
+				47E1FCC51BFD2B7700463F7F /* Supporting Files */,
+			);
+			path = "serval-ios";
+			sourceTree = "<group>";
+		};
+		47E1FCC51BFD2B7700463F7F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				47E1FCC61BFD2B7700463F7F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		47E1FCC11BFD2B7700463F7F /* serval-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47E1FCD91BFD2B7700463F7F /* Build configuration list for PBXNativeTarget "serval-ios" */;
+			buildPhases = (
+				47E1FCBE1BFD2B7700463F7F /* Sources */,
+				47E1FCBF1BFD2B7700463F7F /* Frameworks */,
+				47E1FCC01BFD2B7700463F7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "serval-ios";
+			productName = "serval-ios";
+			productReference = 47E1FCC21BFD2B7700463F7F /* serval-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		47E1FCBA1BFD2B7700463F7F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Jonas Höchst";
+				TargetAttributes = {
+					47E1FCC11BFD2B7700463F7F = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 47E1FCBD1BFD2B7700463F7F /* Build configuration list for PBXProject "serval-ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 47E1FCB91BFD2B7700463F7F;
+			productRefGroup = 47E1FCC31BFD2B7700463F7F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				47E1FCC11BFD2B7700463F7F /* serval-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		47E1FCC01BFD2B7700463F7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */,
+				47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */,
+				47E1FCD01BFD2B7700463F7F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		47E1FCBE1BFD2B7700463F7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47E1FCCD1BFD2B7700463F7F /* ViewController.m in Sources */,
+				47E1FCCA1BFD2B7700463F7F /* AppDelegate.m in Sources */,
+				47E1FCC71BFD2B7700463F7F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		47E1FCCE1BFD2B7700463F7F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47E1FCCF1BFD2B7700463F7F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		47E1FCD31BFD2B7700463F7F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47E1FCD41BFD2B7700463F7F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		47E1FCD71BFD2B7700463F7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		47E1FCD81BFD2B7700463F7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		47E1FCDA1BFD2B7700463F7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "serval-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.jonashoechst.serval-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		47E1FCDB1BFD2B7700463F7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "serval-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.jonashoechst.serval-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		47E1FCBD1BFD2B7700463F7F /* Build configuration list for PBXProject "serval-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47E1FCD71BFD2B7700463F7F /* Debug */,
+				47E1FCD81BFD2B7700463F7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47E1FCD91BFD2B7700463F7F /* Build configuration list for PBXNativeTarget "serval-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47E1FCDA1BFD2B7700463F7F /* Debug */,
+				47E1FCDB1BFD2B7700463F7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 47E1FCBA1BFD2B7700463F7F /* Project object */;
+}
