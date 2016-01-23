@@ -7,25 +7,24 @@
 //
 
 #import "LogViewController.h"
+#import "ServalManager.h"
 
 @interface LogViewController ()
 
 @end
 
 @implementation LogViewController
-NSFileHandle* logfileHandle;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *homePath = NSHomeDirectory();
-    logfileHandle = [NSFileHandle fileHandleForReadingAtPath:[homePath stringByAppendingPathComponent:@"Library/serval.log"]];
+    ServalManager* manager = [ServalManager sharedManager];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotification:)
                                                  name: NSFileHandleReadCompletionNotification
-                                               object: logfileHandle];
-    [logfileHandle readInBackgroundAndNotify];
+                                               object: manager.logFile];
+    [manager.logFile readInBackgroundAndNotify];
     [self.logTextView setText:@""];
 }
 
@@ -35,7 +34,9 @@ NSFileHandle* logfileHandle;
 }
 
 - (void)handleNotification:(NSNotification*) notification {
-    [logfileHandle readInBackgroundAndNotify];
+    ServalManager* manager = [ServalManager sharedManager];
+    
+    [manager.logFile readInBackgroundAndNotify];
     NSString *str = [[NSString alloc] initWithData:[[notification userInfo] objectForKey: NSFileHandleNotificationDataItem]
                                           encoding: NSASCIIStringEncoding];
     

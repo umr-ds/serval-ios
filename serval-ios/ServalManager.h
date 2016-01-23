@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ServalManager : NSObject {
-    NSString *someProperty;
-//    keyring_file *keyring;
-    
-}
+@interface ServalManager : NSObject
 
 @property (nonatomic, retain) NSString *someProperty;
+@property (nonatomic, retain) NSFileHandle *logFile;
 
 + (id)sharedManager;
+- (void)startServald;
 
 @end

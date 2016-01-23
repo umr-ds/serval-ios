@@ -7,14 +7,13 @@
 //
 
 #import "AppDelegate.h" 
+#import "ServalManager.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
-extern int serval_main(int argc, char **argv);
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -27,11 +26,9 @@ extern int serval_main(int argc, char **argv);
     if (![fm copyItemAtPath:confPath_bundle toPath:confPath_instance error:&error]) {
         NSLog(@"Error occured copying config file: %@", error);
     }
-    
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        char argv[3][11] = {"serval-stub", "start", "foreground"};
-//        serval_main(3, (char**) argv);
-//    });
+
+    ServalManager* manager = [ServalManager sharedManager];
+    [manager startServald];
     
     return YES;
 }
