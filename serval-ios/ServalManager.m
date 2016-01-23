@@ -79,6 +79,15 @@ NSString* confPath;
     
 }
 
+- (void) wipeRhizomeDB {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString* instancePath = [NSString stringWithFormat:@"%s/rhizome.db", INSTANCE_PATH];
+    
+    NSError *error;
+    BOOL success = [fm removeItemAtPath:instancePath error:&error];
+    if (!success) NSLog(@"Error removing instance files: %@", error.localizedDescription);
+}
+
 #pragma mark serval configuration
 
 - (BOOL) setConfigOption:(NSString*) option toValue:(NSString*) value{

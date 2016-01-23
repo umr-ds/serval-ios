@@ -27,6 +27,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)backButtonPressed:(id)sender {
+    [[self webView] goBack];
+}
 
 /*
 #pragma mark - Navigation

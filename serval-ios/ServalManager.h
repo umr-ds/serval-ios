@@ -17,5 +17,6 @@
 - (void) startServald;
 - (void) stopServald;
 - (BOOL) setConfigOption:(NSString*) option toValue:(NSString*) value;
+- (void) wipeRhizomeDB;
 
 @end
