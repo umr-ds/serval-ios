@@ -17,16 +17,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *confPath_instance = [NSString stringWithFormat:@"%s/serval.conf", INSTANCE_PATH];
-    NSString *confPath_bundle = [[NSBundle mainBundle] pathForResource:@"serval.conf" ofType:nil];
-    
-    NSError *error;
-    NSFileManager *fm = [NSFileManager defaultManager];
-    
-    if (![fm copyItemAtPath:confPath_bundle toPath:confPath_instance error:&error]) {
-        NSLog(@"Error occured copying config file: %@", error);
-    }
-
     ServalManager* manager = [ServalManager sharedManager];
     [manager startServald];
     

@@ -7,13 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface ServalManager : NSObject
 
-@property (nonatomic, retain) NSString *someProperty;
-@property (nonatomic, retain) NSFileHandle *logFile;
+@property (retain, nonatomic) NSFileHandle *logFile;
 
-+ (id)sharedManager;
-- (void)startServald;
++ (id) sharedManager;
+- (void) startServald;
+- (void) stopServald;
+- (BOOL) setConfigOption:(NSString*) option toValue:(NSString*) value;
 
 @end
