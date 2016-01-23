@@ -1,25 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Oom-AG-qnK">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Rhizome Files-->
+        <scene sceneID="ULv-ub-E9u">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <tableViewController id="De9-kV-had" customClass="RhizomeFilesTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="47" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qdv-Ru-LVg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RhizomeFilesCell" textLabel="7V0-23-VCt" rowHeight="47" style="IBUITableViewCellStyleDefault" id="5wt-7k-ktp">
+                                <rect key="frame" x="0.0" y="28" width="600" height="47"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5wt-7k-ktp" id="6xR-0p-NCP">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="46.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7V0-23-VCt">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="46.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="De9-kV-had" id="HR2-Mt-TYO"/>
+                            <outlet property="delegate" destination="De9-kV-had" id="6Zz-uS-eXh"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Rhizome Files" id="c34-3m-KTm"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TPI-Yg-SGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="293" y="341"/>
+        </scene>
+        <!--Servald Log-->
+        <scene sceneID="NvQ-h8-NuG">
+            <objects>
+                <viewController id="6gK-Hz-9dj" customClass="LogViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vkF-pN-2yu"/>
+                        <viewControllerLayoutGuide type="bottom" id="AgJ-tk-axN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hdQ-1w-MyB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MgA-UV-id8">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="8"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MgA-UV-id8" firstAttribute="top" secondItem="vkF-pN-2yu" secondAttribute="bottom" id="48w-tF-MYv"/>
+                            <constraint firstItem="MgA-UV-id8" firstAttribute="leading" secondItem="hdQ-1w-MyB" secondAttribute="leadingMargin" constant="-20" id="OKI-ve-5dK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MgA-UV-id8" secondAttribute="trailing" constant="-20" id="YrX-Jb-u2D"/>
+                            <constraint firstItem="AgJ-tk-axN" firstAttribute="top" secondItem="MgA-UV-id8" secondAttribute="bottom" id="jrb-ci-Kdo"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Servald Log" id="1Z7-cv-RJZ"/>
+                    <connections>
+                        <outlet property="logTextView" destination="MgA-UV-id8" id="l9w-4t-pJw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YAd-AB-voI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="293" y="-333"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Mbx-KU-uAY">
+            <objects>
+                <tabBarController id="Oom-AG-qnK" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="ou8-KJ-Wnf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="6gK-Hz-9dj" kind="relationship" relationship="viewControllers" id="pgk-wM-x6L"/>
+                        <segue destination="De9-kV-had" kind="relationship" relationship="viewControllers" id="hlF-fs-kpI"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qhf-I9-xbw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-527" y="-2"/>
         </scene>
     </scenes>
 </document>

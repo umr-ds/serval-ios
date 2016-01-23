@@ -6,7 +6,7 @@
 //  Copyright © 2015 Jonas Höchst. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "AppDelegate.h" 
 
 @interface AppDelegate ()
 
@@ -14,9 +14,25 @@
 
 @implementation AppDelegate
 
+extern int serval_main(int argc, char **argv);
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    NSString *confPath_instance = [NSString stringWithFormat:@"%s/serval.conf", INSTANCE_PATH];
+    NSString *confPath_bundle = [[NSBundle mainBundle] pathForResource:@"serval.conf" ofType:nil];
+    
+    NSError *error;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    if (![fm copyItemAtPath:confPath_bundle toPath:confPath_instance error:&error]) {
+        NSLog(@"Error occured copying config file: %@", error);
+    }
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        char argv[3][11] = {"serval-stub", "start", "foreground"};
+//        serval_main(3, (char**) argv);
+//    });
+    
     return YES;
 }
 
