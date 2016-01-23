@@ -44,6 +44,40 @@
             </objects>
             <point key="canvasLocation" x="293" y="341"/>
         </scene>
+        <!--Status-->
+        <scene sceneID="xQO-Zk-Crc">
+            <objects>
+                <viewController id="x5V-Ei-U1z" customClass="ServalWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nvE-3h-ZQS"/>
+                        <viewControllerLayoutGuide type="bottom" id="UWb-lz-GIl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IQa-Ov-FPe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlI-bB-S5t">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nlI-bB-S5t" firstAttribute="top" secondItem="IQa-Ov-FPe" secondAttribute="topMargin" constant="20" id="1Bs-ko-T4a"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nlI-bB-S5t" secondAttribute="trailing" constant="-20" id="2IT-cB-gMh"/>
+                            <constraint firstItem="UWb-lz-GIl" firstAttribute="top" secondItem="nlI-bB-S5t" secondAttribute="bottom" id="TUO-Mz-V1U"/>
+                            <constraint firstItem="nlI-bB-S5t" firstAttribute="leading" secondItem="IQa-Ov-FPe" secondAttribute="leadingMargin" constant="-20" id="gdG-Rm-BFJ"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Status" id="FKx-pt-Cxy"/>
+                    <connections>
+                        <outlet property="webView" destination="nlI-bB-S5t" id="Lh5-bg-Raq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3pi-0h-Kah" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="293" y="1007"/>
+        </scene>
         <!--Servald Log-->
         <scene sceneID="NvQ-h8-NuG">
             <objects>
@@ -93,6 +127,7 @@
                     <connections>
                         <segue destination="6gK-Hz-9dj" kind="relationship" relationship="viewControllers" id="pgk-wM-x6L"/>
                         <segue destination="De9-kV-had" kind="relationship" relationship="viewControllers" id="hlF-fs-kpI"/>
+                        <segue destination="x5V-Ei-U1z" kind="relationship" relationship="viewControllers" id="qMB-YN-L6R"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qhf-I9-xbw" userLabel="First Responder" sceneMemberID="firstResponder"/>
