@@ -24,8 +24,13 @@
                                              selector:@selector(handleNotification:)
                                                  name: NSFileHandleReadCompletionNotification
                                                object: manager.logFile];
+    
+    NSString *str = [[NSString alloc] initWithData: [manager.logFile readDataToEndOfFile]
+                                          encoding: NSASCIIStringEncoding];
+    [self.logTextView setText:str];
+    [self.logTextView scrollRangeToVisible:NSMakeRange(0, self.logTextView.contentSize.height)];
+    
     [manager.logFile readInBackgroundAndNotify];
-    [self.logTextView setText:@""];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,12 +41,20 @@
 - (void)handleNotification:(NSNotification*) notification {
     ServalManager* manager = [ServalManager sharedManager];
     
-    [manager.logFile readInBackgroundAndNotify];
-    NSString *str = [[NSString alloc] initWithData:[[notification userInfo] objectForKey: NSFileHandleNotificationDataItem]
-                                          encoding: NSASCIIStringEncoding];
+    NSData *data = [[notification userInfo] objectForKey: NSFileHandleNotificationDataItem];
+    NSString *str = [[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding];
     
     [self.logTextView setText:[self.logTextView.text stringByAppendingString:str]];
-//    [self.logTextView     scrollRangeToVisible:NSMakeRange([self.logTextView.text length], 0)];
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        // sleep on a secondary thread
+        [NSThread sleepForTimeInterval: 1];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // read on main thread
+            [manager.logFile readInBackgroundAndNotify];
+        });
+    });
 
 }
 
