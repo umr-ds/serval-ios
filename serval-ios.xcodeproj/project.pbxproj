@@ -40,6 +40,8 @@
 		479084D41C5448A6002DF295 /* UNIHTTPRequestWithBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C31C5448A6002DF295 /* UNIHTTPRequestWithBody.m */; };
 		479084D51C5448A6002DF295 /* UNIRest.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C61C5448A6002DF295 /* UNIRest.m */; };
 		479084D61C5448A6002DF295 /* UNIUrlConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C81C5448A6002DF295 /* UNIUrlConnection.m */; };
+		479084D91C5460A7002DF295 /* RhizomeFileDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084D81C5460A7002DF295 /* RhizomeFileDetailViewController.m */; };
+		479084DC1C546B89002DF295 /* ServalStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084DB1C546B89002DF295 /* ServalStatusViewController.m */; };
 		47E104BD1BFD3E2400463F7F /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E102ED1BFD317000463F7F /* sqlite3.c */; };
 		47E104BE1BFD3E3C00463F7F /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EA1BFD317000463F7F /* hmac.c */; };
 		47E104BF1BFD3E3C00463F7F /* verify.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EB1BFD317000463F7F /* verify.c */; };
@@ -196,7 +198,6 @@
 		47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD11BFD2B7700463F7F /* Assets.xcassets */; };
 		47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD31BFD2B7700463F7F /* LaunchScreen.storyboard */; };
 		47E6ABAD1C53C8BB002FB36A /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E6ABAC1C53C8BB002FB36A /* LogViewController.m */; };
-		47E6ABB31C54367C002FB36A /* ServalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E6ABB21C54367C002FB36A /* ServalWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -237,6 +238,10 @@
 		479084C61C5448A6002DF295 /* UNIRest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIRest.m; sourceTree = "<group>"; };
 		479084C71C5448A6002DF295 /* UNIUrlConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIUrlConnection.h; sourceTree = "<group>"; };
 		479084C81C5448A6002DF295 /* UNIUrlConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIUrlConnection.m; sourceTree = "<group>"; };
+		479084D71C5460A7002DF295 /* RhizomeFileDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RhizomeFileDetailViewController.h; sourceTree = "<group>"; };
+		479084D81C5460A7002DF295 /* RhizomeFileDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RhizomeFileDetailViewController.m; sourceTree = "<group>"; };
+		479084DA1C546B89002DF295 /* ServalStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServalStatusViewController.h; sourceTree = "<group>"; };
+		479084DB1C546B89002DF295 /* ServalStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalStatusViewController.m; sourceTree = "<group>"; };
 		47E100F11BFD316F00463F7F /* android.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = android.c; sourceTree = "<group>"; };
 		47E100F51BFD316F00463F7F /* check-in-out-return.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "check-in-out-return.c"; sourceTree = "<group>"; };
 		47E100F61BFD316F00463F7F /* cli.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cli.c; sourceTree = "<group>"; };
@@ -614,8 +619,6 @@
 		47E1FCD61BFD2B7700463F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47E6ABAB1C53C8BB002FB36A /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		47E6ABAC1C53C8BB002FB36A /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
-		47E6ABB11C54367C002FB36A /* ServalWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServalWebViewController.h; sourceTree = "<group>"; };
-		47E6ABB21C54367C002FB36A /* ServalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1351,8 +1354,10 @@
 				472C97371C22AD6600688796 /* RhizomeFilesTableViewController.m */,
 				47E6ABAB1C53C8BB002FB36A /* LogViewController.h */,
 				47E6ABAC1C53C8BB002FB36A /* LogViewController.m */,
-				47E6ABB11C54367C002FB36A /* ServalWebViewController.h */,
-				47E6ABB21C54367C002FB36A /* ServalWebViewController.m */,
+				479084D71C5460A7002DF295 /* RhizomeFileDetailViewController.h */,
+				479084D81C5460A7002DF295 /* RhizomeFileDetailViewController.m */,
+				479084DA1C546B89002DF295 /* ServalStatusViewController.h */,
+				479084DB1C546B89002DF295 /* ServalStatusViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1438,6 +1443,7 @@
 				47E104C21BFD3E9500463F7F /* after.c in Sources */,
 				47E104C31BFD3E9500463F7F /* before.c in Sources */,
 				47E104C41BFD3E9500463F7F /* box.c in Sources */,
+				479084DC1C546B89002DF295 /* ServalStatusViewController.m in Sources */,
 				47E104C51BFD3E9500463F7F /* keypair.c in Sources */,
 				47E104C61BFD3E9500463F7F /* core.c in Sources */,
 				47E104C71BFD3E9500463F7F /* core.c in Sources */,
@@ -1495,6 +1501,7 @@
 				47E104F91BFD3E9500463F7F /* open.c in Sources */,
 				479084CB1C5448A6002DF295 /* UNIBodyRequest.m in Sources */,
 				47E104FA1BFD3E9500463F7F /* sc25519.c in Sources */,
+				479084D91C5460A7002DF295 /* RhizomeFileDetailViewController.m in Sources */,
 				479084CD1C5448A6002DF295 /* UNIHTTPBinaryResponse.m in Sources */,
 				47E104FB1BFD3E9500463F7F /* sc_muladd.c in Sources */,
 				47E104FC1BFD3E9500463F7F /* sc_reduce.c in Sources */,
@@ -1594,7 +1601,6 @@
 				47E105481BFD434C00463F7F /* rhizome_crypto.c in Sources */,
 				479084D21C5448A6002DF295 /* UNIHTTPClientHelper.m in Sources */,
 				47E105491BFD434C00463F7F /* rhizome_database.c in Sources */,
-				47E6ABB31C54367C002FB36A /* ServalWebViewController.m in Sources */,
 				47E1054A1BFD434C00463F7F /* rhizome_direct.c in Sources */,
 				47E1054B1BFD434C00463F7F /* rhizome_direct_http.c in Sources */,
 				47E1054C1BFD434C00463F7F /* rhizome_fetch.c in Sources */,

@@ -1,0 +1,17 @@
+//
+//  RhizomeFileDetailViewController.h
+//  serval-ios
+//
+//  Created by Jonas Höchst on 24.01.16.
+//  Copyright © 2016 Jonas Höchst. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface RhizomeFileDetailViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) NSString *restfulUrl;
+//@property (strong, nonatomic) NSArray *dataRow;
+@property (strong, nonatomic) NSURLRequest *request;
+
+@end

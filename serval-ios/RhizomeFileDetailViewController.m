@@ -1,34 +1,30 @@
 //
-//  ServalWebViewController.m
+//  RhizomeFileDetailViewController.m
 //  serval-ios
 //
-//  Created by Jonas Höchst on 23.01.16.
+//  Created by Jonas Höchst on 24.01.16.
 //  Copyright © 2016 Jonas Höchst. All rights reserved.
 //
 
-#import "ServalWebViewController.h"
+#import "RhizomeFileDetailViewController.h"
 
-@interface ServalWebViewController ()
+@interface RhizomeFileDetailViewController ()
 
 @end
 
-@implementation ServalWebViewController
+@implementation RhizomeFileDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *urlAddress = @"http://localhost:4110";
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [[self webView] loadRequest:request];
+//    NSURL *url = [NSURL URLWithString:self.restfulUrl];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [[self webView] loadRequest:[self request]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-- (IBAction)backButtonPressed:(id)sender {
-    [[self webView] goBack];
 }
 
 /*

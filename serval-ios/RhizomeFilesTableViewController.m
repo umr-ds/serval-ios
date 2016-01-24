@@ -7,6 +7,7 @@
 //
 
 #import "RhizomeFilesTableViewController.h"
+#import "RhizomeFileDetailViewController.h"
 #import <UNIRest.h>
 
 
@@ -18,6 +19,8 @@
 
 NSArray* header;
 NSArray* rows;
+NSString* servalUser = @"ios";
+NSString* servalPassword = @"password";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,15 +28,15 @@ NSArray* rows;
     NSError *error = nil;
     UNIHTTPJsonResponse *response = [[UNIRest get:^(UNISimpleRequest *request) {
         [request setUrl:@"http://localhost:4110/restful/rhizome/bundlelist.json"];
-        [request setUsername:@"ios"];
-        [request setPassword:@"password"];
+        [request setUsername:servalUser];
+        [request setPassword:servalPassword];
     }] asJson:&error];
     
     if(error){
         NSLog(@"Request failed: %@", error.localizedDescription);
     } else {
-        NSString *responseStr = [[NSString alloc] initWithData:[response rawBody] encoding: NSASCIIStringEncoding];
-        NSLog(@"Response: %@", responseStr);
+//        NSString *responseStr = [[NSString alloc] initWithData:[response rawBody] encoding: NSASCIIStringEncoding];
+//        NSLog(@"Response: %@", responseStr);
         NSLog(@"Response sucessful!");
         header = [response.body.object objectForKey:@"header"];
         
@@ -148,14 +151,29 @@ NSArray* rows;
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"showRhizomeFileSegue"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        RhizomeFileDetailViewController *viewController = segue.destinationViewController;
+        viewController.title = [self valueForField:@"name" inRow:indexPath.row];
+        //        viewController.dataRow = [rows objectAtIndex:indexPath.row];
+        
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", servalUser, servalPassword];
+        NSData *authData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64Encoding]];
+        
+        NSString* restfulUrl = [NSString stringWithFormat:@"http://localhost:4110/restful/rhizome/%@/decrypted.bin", [self valueForField:@"id" inRow:indexPath.row]];
+        NSURL *url = [NSURL URLWithString: restfulUrl];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+
+        viewController.request = request;
+    }
 }
-*/
+
 
 @end
