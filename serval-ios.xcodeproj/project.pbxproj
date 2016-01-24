@@ -44,6 +44,13 @@
 		479084DC1C546B89002DF295 /* ServalStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084DB1C546B89002DF295 /* ServalStatusViewController.m */; };
 		479084DF1C547291002DF295 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 479084DE1C547291002DF295 /* folder.png */; };
 		479084E11C5472CC002DF295 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 479084E01C5472CC002DF295 /* edit.png */; };
+		47C543861C554C2D00B37EA8 /* KeyValueTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C543851C554C2D00B37EA8 /* KeyValueTableViewController.m */; };
+		47C543931C55639700B37EA8 /* UITabBarMostViewed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C5438D1C55639700B37EA8 /* UITabBarMostViewed@2x.png */; };
+		47C543941C55639700B37EA8 /* UITabBarMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C5438E1C55639700B37EA8 /* UITabBarMore@2x.png */; };
+		47C543951C55639700B37EA8 /* UITabBarBookmarks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C5438F1C55639700B37EA8 /* UITabBarBookmarks@2x.png */; };
+		47C543961C55639700B37EA8 /* UITabBarMostViewed.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C543901C55639700B37EA8 /* UITabBarMostViewed.png */; };
+		47C543971C55639700B37EA8 /* UITabBarMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C543911C55639700B37EA8 /* UITabBarMore.png */; };
+		47C543981C55639700B37EA8 /* UITabBarBookmarks.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C543921C55639700B37EA8 /* UITabBarBookmarks.png */; };
 		47E104BD1BFD3E2400463F7F /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E102ED1BFD317000463F7F /* sqlite3.c */; };
 		47E104BE1BFD3E3C00463F7F /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EA1BFD317000463F7F /* hmac.c */; };
 		47E104BF1BFD3E3C00463F7F /* verify.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EB1BFD317000463F7F /* verify.c */; };
@@ -246,6 +253,14 @@
 		479084DB1C546B89002DF295 /* ServalStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalStatusViewController.m; sourceTree = "<group>"; };
 		479084DE1C547291002DF295 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		479084E01C5472CC002DF295 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		47C543841C554C2D00B37EA8 /* KeyValueTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyValueTableViewController.h; sourceTree = "<group>"; };
+		47C543851C554C2D00B37EA8 /* KeyValueTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyValueTableViewController.m; sourceTree = "<group>"; };
+		47C5438D1C55639700B37EA8 /* UITabBarMostViewed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMostViewed@2x.png"; sourceTree = "<group>"; };
+		47C5438E1C55639700B37EA8 /* UITabBarMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMore@2x.png"; sourceTree = "<group>"; };
+		47C5438F1C55639700B37EA8 /* UITabBarBookmarks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarBookmarks@2x.png"; sourceTree = "<group>"; };
+		47C543901C55639700B37EA8 /* UITabBarMostViewed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarMostViewed.png; sourceTree = "<group>"; };
+		47C543911C55639700B37EA8 /* UITabBarMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarMore.png; sourceTree = "<group>"; };
+		47C543921C55639700B37EA8 /* UITabBarBookmarks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarBookmarks.png; sourceTree = "<group>"; };
 		47E100F11BFD316F00463F7F /* android.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = android.c; sourceTree = "<group>"; };
 		47E100F51BFD316F00463F7F /* check-in-out-return.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "check-in-out-return.c"; sourceTree = "<group>"; };
 		47E100F61BFD316F00463F7F /* cli.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cli.c; sourceTree = "<group>"; };
@@ -701,6 +716,12 @@
 		479084DD1C547281002DF295 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				47C543901C55639700B37EA8 /* UITabBarMostViewed.png */,
+				47C5438D1C55639700B37EA8 /* UITabBarMostViewed@2x.png */,
+				47C543911C55639700B37EA8 /* UITabBarMore.png */,
+				47C5438E1C55639700B37EA8 /* UITabBarMore@2x.png */,
+				47C543921C55639700B37EA8 /* UITabBarBookmarks.png */,
+				47C5438F1C55639700B37EA8 /* UITabBarBookmarks@2x.png */,
 				479084E01C5472CC002DF295 /* edit.png */,
 				479084DE1C547291002DF295 /* folder.png */,
 			);
@@ -1372,6 +1393,8 @@
 				479084D81C5460A7002DF295 /* RhizomeFileDetailViewController.m */,
 				479084DA1C546B89002DF295 /* ServalStatusViewController.h */,
 				479084DB1C546B89002DF295 /* ServalStatusViewController.m */,
+				47C543841C554C2D00B37EA8 /* KeyValueTableViewController.h */,
+				47C543851C554C2D00B37EA8 /* KeyValueTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1435,9 +1458,15 @@
 			files = (
 				47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */,
 				479084DF1C547291002DF295 /* folder.png in Resources */,
+				47C543951C55639700B37EA8 /* UITabBarBookmarks@2x.png in Resources */,
+				47C543981C55639700B37EA8 /* UITabBarBookmarks.png in Resources */,
 				47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */,
 				47E1FCD01BFD2B7700463F7F /* Main.storyboard in Resources */,
 				4783A8251C00E50700C6039D /* serval.conf in Resources */,
+				47C543961C55639700B37EA8 /* UITabBarMostViewed.png in Resources */,
+				47C543971C55639700B37EA8 /* UITabBarMore.png in Resources */,
+				47C543941C55639700B37EA8 /* UITabBarMore@2x.png in Resources */,
+				47C543931C55639700B37EA8 /* UITabBarMostViewed@2x.png in Resources */,
 				479084E11C5472CC002DF295 /* edit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1474,6 +1503,7 @@
 				47E104D01BFD3E9500463F7F /* base.c in Sources */,
 				47E104D11BFD3E9500463F7F /* smult.c in Sources */,
 				47E104D21BFD3E9500463F7F /* box.c in Sources */,
+				47C543861C554C2D00B37EA8 /* KeyValueTableViewController.m in Sources */,
 				47E104D41BFD3E9500463F7F /* fe25519.c in Sources */,
 				47E104D51BFD3E9500463F7F /* fe_0.c in Sources */,
 				47E104D61BFD3E9500463F7F /* fe_1.c in Sources */,

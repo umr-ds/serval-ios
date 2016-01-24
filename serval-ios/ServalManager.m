@@ -7,6 +7,8 @@
 //
 
 #import "ServalManager.h"
+#import "UNIHTTPJsonResponse.h"
+#import "UNIRest.h"
 
 // copied from serval_main.c
 #include <signal.h>
@@ -17,7 +19,7 @@
 NSThread* servaldThread;
 NSString* confPath;
 
-#pragma mark Singleton Methods
+#pragma mark - Singleton Methods
 
 + (id)sharedManager {
     static ServalManager *sharedServalManager = nil;
@@ -31,10 +33,12 @@ NSString* confPath;
 - (id) init {
     self = [super init];
     confPath = [NSString stringWithFormat:@"%s/serval.conf", INSTANCE_PATH];
+    self.restUser = @"ios";
+    self.restPassword = @"password";
     return self;
 }
 
-# pragma mark serval daemon helpers
+# pragma mark - serval daemon helpers
 
 - (void) testOrCopyConfig {
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -88,7 +92,7 @@ NSString* confPath;
     if (!success) NSLog(@"Error removing instance files: %@", error.localizedDescription);
 }
 
-#pragma mark serval configuration
+#pragma mark - serval configuration
 
 - (BOOL) setConfigOption:(NSString*) option toValue:(NSString*) value{
     if([servaldThread isExecuting]){
@@ -98,8 +102,15 @@ NSString* confPath;
     return FALSE;
 }
 
+- (NSString*) getConfig{
+    NSError *error;
+    NSString *content = [NSString stringWithContentsOfFile:confPath encoding:NSUTF8StringEncoding error:&error];
+    
+    return content;
+}
 
-#pragma mark serval daemon start/stops
+
+#pragma mark - serval daemon start/stops
 
 - (void)startServald {
 //    [self testOrCopyConfig];
@@ -140,7 +151,7 @@ NSString* confPath;
     }
 }
 
-#pragma mark serval invoke methods
+#pragma mark - serval invoke methods
 
 - (NSThread*) dispatchServalCommand:(NSArray* )ns_argv{
     NSThread* servalThread = [[NSThread alloc] initWithTarget:self selector:@selector(servaldCommand:) object:ns_argv];
@@ -148,7 +159,7 @@ NSString* confPath;
     return servalThread;
 }
 
-#pragma mark servald_main methods
+#pragma mark - servald_main methods
 
 - (void) servaldCommand:(NSArray*) ns_argv{
     //capture stdout
@@ -203,5 +214,68 @@ static void crash_handler(int signal) {
     INFOF("exit(%d)", -signal);
     exit(-signal);
 }
+
+# pragma mark - rest api helpers
+
++ (NSDictionary*) jsonDictForApiPath:(NSString*) path {
+    return [ServalManager jsonDictForApiPath:path withParameters:nil];
+}
+
++ (NSDictionary*) jsonDictForApiPath:(NSString*) path withParameters:(NSDictionary*) parameters{
+    ServalManager *m = [self sharedManager];
+    
+    NSError *error = nil;
+    NSString *url = [NSString stringWithFormat:@"http://localhost:4110/restful%@", path];
+    UNIHTTPJsonResponse *response = [[UNIRest get:^(UNISimpleRequest *request) {
+        [request setUrl:url];
+        [request setUsername:[m restUser]];
+        [request setPassword:[m restPassword]];
+        if (parameters) [request setParameters:parameters];
+    }] asJson:&error];
+    
+    if(error){
+        NSLog(@"Request failed: %@", error.localizedDescription);
+        return nil;
+    }
+    
+    NSLog(@"Response sucessful for url: %@", url);
+    return response.body.object;
+}
+
+- (void) refreshSidProperties{
+    NSDictionary *sidDict = [ServalManager jsonDictForApiPath:@"/keyring/identities.json"];
+    
+    // For now, we are just supporting the first (aka. primary) SID
+    _sid = [[[sidDict objectForKey:@"rows"] objectAtIndex:0] objectAtIndex:0];
+    _did = [[[sidDict objectForKey:@"rows"] objectAtIndex:0] objectAtIndex:1];
+    _name = [[[sidDict objectForKey:@"rows"] objectAtIndex:0] objectAtIndex:2];
+}
+
+- (void) setSid:(NSString *)sid{
+    NSLog(@"Sid can never be set by the app.");
+    return;
+}
+
+- (void) setDid:(NSString *)did{
+    NSString *path = [NSString stringWithFormat:@"/keyring/%@/set", self.sid];
+    NSDictionary *response = [ServalManager jsonDictForApiPath:path withParameters:@{@"did": did, @"name": _name}];
+    if (!response) NSLog(@"error updating the did for %@", self.sid);
+    else {
+        NSLog(@"%@", response);
+        _did = did;
+    }
+}
+
+- (void) setName:(NSString *)name{
+    NSString *path = [NSString stringWithFormat:@"/keyring/%@/set", self.sid];
+    NSDictionary *response = [ServalManager jsonDictForApiPath:path withParameters:@{@"name": name, @"did": _did}];
+    if (!response) NSLog(@"error updating the name for %@", self.sid);
+    else {
+        NSLog(@"%@", response);
+        _name = name;
+    }
+}
+
+
 
 @end

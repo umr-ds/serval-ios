@@ -8,6 +8,7 @@
 
 #import "RhizomeFilesTableViewController.h"
 #import "RhizomeFileDetailViewController.h"
+#import "ServalManager.h"
 #import <UNIRest.h>
 
 
@@ -35,33 +36,54 @@ NSString* servalPassword = @"password";
     }
 
 - (void)refreshBundlelist{
-    NSError *error = nil;
-    UNIHTTPJsonResponse *response = [[UNIRest get:^(UNISimpleRequest *request) {
-        [request setUrl:@"http://localhost:4110/restful/rhizome/bundlelist.json"];
-        [request setUsername:servalUser];
-        [request setPassword:servalPassword];
-    }] asJson:&error];
+    ServalManager *m = [ServalManager sharedManager];
+    [m refreshSidProperties];
     
-    if(error){
-        NSLog(@"Request failed: %@", error.localizedDescription);
-    } else {
-        //        NSString *responseStr = [[NSString alloc] initWithData:[response rawBody] encoding: NSASCIIStringEncoding];
-        //        NSLog(@"Response: %@", responseStr);
-        NSLog(@"Response sucessful!");
-        header = [response.body.object objectForKey:@"header"];
+    NSDictionary* bundlelist = [ServalManager jsonDictForApiPath:@"/rhizome/bundlelist.json"];
+    
+    if(bundlelist != nil){
+        header = [bundlelist objectForKey:@"header"];
         
         NSInteger serviceIndex = [self indexOfField:@"service"];
-        NSMutableArray *fileRows = [[NSMutableArray alloc] init];
+        NSInteger senderIndex = [self indexOfField:@"sender"];
+        NSInteger recipientIndex = [self indexOfField:@"recipient"];
         
-        for(NSArray* row in [response.body.object objectForKey:@"rows"]){
-            if ([[row objectAtIndex:serviceIndex] isEqualToString:@"file"])
+        NSMutableArray *fileRows = [[NSMutableArray alloc] init];
+        NSArray* bundleListRows = [bundlelist objectForKey:@"rows"];
+        
+        for(NSArray* row in bundleListRows){
+            // checks if this entry is a file
+            if (! [[row objectAtIndex:serviceIndex] isEqualToString:@"file"]) {
+                // NSLog(@"not a file");
+                continue;
+            }
+            
+            // if the file is sent by us, we can decrypt it.
+            if ( [[row objectAtIndex:senderIndex] isKindOfClass:[NSString class]] && [[row objectAtIndex:senderIndex] isEqualToString:m.sid] ) {
                 [fileRows addObject:row];
+                // NSLog(@"sent by us");
+                continue;
+            }
+            // if the file is recieved by us, we can decrypt it.
+            if ( [[row objectAtIndex:recipientIndex] isKindOfClass:[NSString class]] && [[row objectAtIndex:recipientIndex] isEqualToString:m.sid] ) {
+                [fileRows addObject:row];
+                // NSLog(@"recieved by us");
+                continue;
+            }
+
+            // if the file has no reciever, its public and we can decrypt it
+            if ( [[row objectAtIndex:recipientIndex] isKindOfClass:[NSNull class]] ) {
+                [fileRows addObject:row];
+                // NSLog(@"public file");
+                continue;
+            }
         }
         
         rows = [fileRows copy];
     }
+    
+    [self.tableView reloadData];
     [self.refreshControl endRefreshing];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,24 +111,18 @@ NSString* servalPassword = @"password";
     return count;
 }
 
-- (NSString*) valueForField:(NSString*) field inRow:(NSInteger) rowNo{
+- (id) valueForField:(NSString*) field inRow:(NSInteger) rowNo{
     NSInteger index = [self indexOfField:field];
-    if (index == -1) return nil;
+    if (index == -1) return [[NSNull alloc] init];
 
     NSArray* row = [rows objectAtIndex:rowNo];
-    if (row == nil) return @"Row is nil.";
     NSString* value = [row objectAtIndex:index];
-    if(value == nil) return @"Value is nil.";
-    if([value class] == [NSNull class]) return @"NSNull value";
     return value;
 }
 
-- (NSString*) valueForIndex:(NSInteger) index inRow:(NSInteger) rowNo{
+- (id) valueForIndex:(NSInteger) index inRow:(NSInteger) rowNo{
     NSArray* row = [rows objectAtIndex:rowNo];
-    if (row == nil) return @"Row is nil.";
     NSString* value = [row objectAtIndex:index];
-    if(value == nil) return @"Value is nil.";
-    if([value class] == [NSNull class]) return @"NSNull value";
     return value;
 }
 
@@ -124,8 +140,24 @@ NSString* servalPassword = @"password";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RhizomeFilesCell" forIndexPath:indexPath];
+
+    // set filename
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
+    [nameLabel setText:[self valueForField:@"name" inRow:indexPath.row]];
     
-    [cell.textLabel setText:[self valueForField:@"name" inRow:indexPath.row]];
+    // compute & set date
+    UILabel *dateLabel = (UILabel *)[cell viewWithTag:101];
+    NSTimeInterval epochTimeInterval = [[self valueForField:@"date" inRow:indexPath.row] doubleValue] / 1000;
+    NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:epochTimeInterval];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd.MM.yyyy HH:mm"];
+    [dateLabel setText:[dateFormatter stringFromDate:epochNSDate]];
+    
+    // set sender information
+    UILabel *detailLabel = (UILabel *)[cell viewWithTag:102];
+    NSString *sender = [self valueForField:@"sender" inRow:indexPath.row];
+    if([sender isKindOfClass:[NSNull class]]) [detailLabel setText:@"Public File"];
+    else [detailLabel setText:[NSString stringWithFormat:@"%@", [self valueForField:@"sender" inRow:indexPath.row]]];
     
     return cell;
 }
@@ -171,11 +203,13 @@ NSString* servalPassword = @"password";
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showRhizomeFileSegue"]) {
+        
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
         RhizomeFileDetailViewController *viewController = segue.destinationViewController;
         viewController.title = [self valueForField:@"name" inRow:indexPath.row];
-        //        viewController.dataRow = [rows objectAtIndex:indexPath.row];
         
+        // create request
         NSString *authStr = [NSString stringWithFormat:@"%@:%@", servalUser, servalPassword];
         NSData *authData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
         NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64Encoding]];
@@ -186,6 +220,8 @@ NSString* servalPassword = @"password";
         [request setValue:authValue forHTTPHeaderField:@"Authorization"];
 
         viewController.request = request;
+        viewController.keys = header;
+        viewController.values = [rows objectAtIndex:indexPath.row];
     }
 }
 

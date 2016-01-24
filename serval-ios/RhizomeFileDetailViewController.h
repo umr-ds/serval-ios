@@ -10,8 +10,9 @@
 
 @interface RhizomeFileDetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (strong, nonatomic) NSString *restfulUrl;
-//@property (strong, nonatomic) NSArray *dataRow;
 @property (strong, nonatomic) NSURLRequest *request;
+
+@property (strong, nonatomic) NSArray *keys;
+@property (strong, nonatomic) NSArray *values;
 
 @end

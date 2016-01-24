@@ -7,6 +7,8 @@
 //
 
 #import "ServalStatusViewController.h"
+#import "KeyValueTableViewController.h"
+#import "ServalManager.h"
 
 @interface ServalStatusViewController ()
 
@@ -45,6 +47,25 @@
         return NO;
     }
     return YES;
+}
+- (IBAction)configButtonPressed:(id)sender {
+    NSMutableArray *keys = [[NSMutableArray alloc] init];
+    NSMutableArray *values = [[NSMutableArray alloc] init];
+    ServalManager *m = [ServalManager sharedManager];
+    
+    NSString* config = [m getConfig];
+    NSArray* lines = [config componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
+    
+    for(NSString* line in lines){
+        NSArray *items = [line componentsSeparatedByString:@"="];
+        if ([items count] == 2) {
+            [keys addObject:[items objectAtIndex:0]];
+            [values addObject:[items objectAtIndex:1]];
+        }
+    }
+    
+    [KeyValueTableViewController presentTableViewForKeys:values values:keys fromView:self withTitle:@"servald.conf"];
+    
 }
 
 /*

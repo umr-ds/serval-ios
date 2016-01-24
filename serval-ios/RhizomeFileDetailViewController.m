@@ -7,6 +7,7 @@
 //
 
 #import "RhizomeFileDetailViewController.h"
+#import "KeyValueTableViewController.h"
 
 @interface RhizomeFileDetailViewController ()
 
@@ -16,15 +17,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIBarButtonItem *infoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(presentInfoView:)];
+                            
+    self.navigationItem.rightBarButtonItem = infoButton;
     
-//    NSURL *url = [NSURL URLWithString:self.restfulUrl];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [[self webView] loadRequest:[self request]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)presentInfoView:(id)sender {
+    [KeyValueTableViewController presentTableViewForKeys:self.keys values:self.values fromView:self withTitle:@"Rhizome File Details"];
 }
 
 /*

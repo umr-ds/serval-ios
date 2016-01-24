@@ -12,11 +12,21 @@
 @interface ServalManager : NSObject
 
 @property (retain, nonatomic) NSFileHandle *logFile;
+@property (retain, nonatomic) NSString *restUser;
+@property (retain, nonatomic) NSString *restPassword;
+@property (retain, nonatomic) NSString *sid;
+@property (retain, nonatomic) NSString *did;
+@property (retain, nonatomic) NSString *name;
 
 + (id) sharedManager;
 - (void) startServald;
 - (void) stopServald;
 - (BOOL) setConfigOption:(NSString*) option toValue:(NSString*) value;
 - (void) wipeRhizomeDB;
+
++ (NSDictionary*) jsonDictForApiPath:(NSString*) path;
++ (NSDictionary*) jsonDictForApiPath:(NSString*) path withParameters:(NSDictionary*) parameters;
+- (void) refreshSidProperties;
+- (NSString*) getConfig;
 
 @end
