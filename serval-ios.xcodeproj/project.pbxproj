@@ -196,7 +196,6 @@
 		47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD11BFD2B7700463F7F /* Assets.xcassets */; };
 		47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD31BFD2B7700463F7F /* LaunchScreen.storyboard */; };
 		47E6ABAD1C53C8BB002FB36A /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E6ABAC1C53C8BB002FB36A /* LogViewController.m */; };
-		47E6ABB01C542253002FB36A /* ServalRest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E6ABAF1C542253002FB36A /* ServalRest.m */; };
 		47E6ABB31C54367C002FB36A /* ServalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E6ABB21C54367C002FB36A /* ServalWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -615,8 +614,6 @@
 		47E1FCD61BFD2B7700463F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47E6ABAB1C53C8BB002FB36A /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		47E6ABAC1C53C8BB002FB36A /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
-		47E6ABAE1C542253002FB36A /* ServalRest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServalRest.h; sourceTree = "<group>"; };
-		47E6ABAF1C542253002FB36A /* ServalRest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalRest.m; sourceTree = "<group>"; };
 		47E6ABB11C54367C002FB36A /* ServalWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServalWebViewController.h; sourceTree = "<group>"; };
 		47E6ABB21C54367C002FB36A /* ServalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -637,8 +634,6 @@
 			children = (
 				472C973A1C22B67900688796 /* ServalManager.h */,
 				472C973B1C22B67900688796 /* ServalManager.m */,
-				47E6ABAE1C542253002FB36A /* ServalRest.h */,
-				47E6ABAF1C542253002FB36A /* ServalRest.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -1605,7 +1600,6 @@
 				47E1054C1BFD434C00463F7F /* rhizome_fetch.c in Sources */,
 				47E1054D1BFD434C00463F7F /* rhizome_http.c in Sources */,
 				47E1054E1BFD434C00463F7F /* rhizome_restful.c in Sources */,
-				47E6ABB01C542253002FB36A /* ServalRest.m in Sources */,
 				479084D01C5448A6002DF295 /* UNIHTTPStringResponse.m in Sources */,
 				47E1054F1BFD434C00463F7F /* rhizome_packetformats.c in Sources */,
 				47E105501BFD434C00463F7F /* rhizome_store.c in Sources */,
