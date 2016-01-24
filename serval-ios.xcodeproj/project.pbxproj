@@ -42,6 +42,8 @@
 		479084D61C5448A6002DF295 /* UNIUrlConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C81C5448A6002DF295 /* UNIUrlConnection.m */; };
 		479084D91C5460A7002DF295 /* RhizomeFileDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084D81C5460A7002DF295 /* RhizomeFileDetailViewController.m */; };
 		479084DC1C546B89002DF295 /* ServalStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084DB1C546B89002DF295 /* ServalStatusViewController.m */; };
+		479084DF1C547291002DF295 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 479084DE1C547291002DF295 /* folder.png */; };
+		479084E11C5472CC002DF295 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 479084E01C5472CC002DF295 /* edit.png */; };
 		47E104BD1BFD3E2400463F7F /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E102ED1BFD317000463F7F /* sqlite3.c */; };
 		47E104BE1BFD3E3C00463F7F /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EA1BFD317000463F7F /* hmac.c */; };
 		47E104BF1BFD3E3C00463F7F /* verify.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EB1BFD317000463F7F /* verify.c */; };
@@ -242,6 +244,8 @@
 		479084D81C5460A7002DF295 /* RhizomeFileDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RhizomeFileDetailViewController.m; sourceTree = "<group>"; };
 		479084DA1C546B89002DF295 /* ServalStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServalStatusViewController.h; sourceTree = "<group>"; };
 		479084DB1C546B89002DF295 /* ServalStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalStatusViewController.m; sourceTree = "<group>"; };
+		479084DE1C547291002DF295 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
+		479084E01C5472CC002DF295 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
 		47E100F11BFD316F00463F7F /* android.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = android.c; sourceTree = "<group>"; };
 		47E100F51BFD316F00463F7F /* check-in-out-return.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "check-in-out-return.c"; sourceTree = "<group>"; };
 		47E100F61BFD316F00463F7F /* cli.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cli.c; sourceTree = "<group>"; };
@@ -692,6 +696,15 @@
 				479084BD1C5448A6002DF295 /* UNIJsonNode.m */,
 			);
 			path = HttpResponse;
+			sourceTree = "<group>";
+		};
+		479084DD1C547281002DF295 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				479084E01C5472CC002DF295 /* edit.png */,
+				479084DE1C547291002DF295 /* folder.png */,
+			);
+			name = icons;
 			sourceTree = "<group>";
 		};
 		47E100ED1BFD316F00463F7F /* serval-dna */ = {
@@ -1301,6 +1314,7 @@
 		47E1FCB91BFD2B7700463F7F = {
 			isa = PBXGroup;
 			children = (
+				479084DD1C547281002DF295 /* icons */,
 				479084A91C5448A6002DF295 /* Unirest */,
 				47E100ED1BFD316F00463F7F /* serval-dna */,
 				47E1FCC41BFD2B7700463F7F /* serval-ios */,
@@ -1420,9 +1434,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */,
+				479084DF1C547291002DF295 /* folder.png in Resources */,
 				47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */,
 				47E1FCD01BFD2B7700463F7F /* Main.storyboard in Resources */,
 				4783A8251C00E50700C6039D /* serval.conf in Resources */,
+				479084E11C5472CC002DF295 /* edit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

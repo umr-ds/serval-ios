@@ -25,6 +25,16 @@ NSString* servalPassword = @"password";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor purpleColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self action:@selector(refreshBundlelist) forControlEvents:UIControlEventValueChanged];
+    
+    [self refreshBundlelist];
+    
+    }
+
+- (void)refreshBundlelist{
     NSError *error = nil;
     UNIHTTPJsonResponse *response = [[UNIRest get:^(UNISimpleRequest *request) {
         [request setUrl:@"http://localhost:4110/restful/rhizome/bundlelist.json"];
@@ -35,19 +45,23 @@ NSString* servalPassword = @"password";
     if(error){
         NSLog(@"Request failed: %@", error.localizedDescription);
     } else {
-//        NSString *responseStr = [[NSString alloc] initWithData:[response rawBody] encoding: NSASCIIStringEncoding];
-//        NSLog(@"Response: %@", responseStr);
+        //        NSString *responseStr = [[NSString alloc] initWithData:[response rawBody] encoding: NSASCIIStringEncoding];
+        //        NSLog(@"Response: %@", responseStr);
         NSLog(@"Response sucessful!");
         header = [response.body.object objectForKey:@"header"];
         
         NSInteger serviceIndex = [self indexOfField:@"service"];
         NSMutableArray *fileRows = [[NSMutableArray alloc] init];
+        
         for(NSArray* row in [response.body.object objectForKey:@"rows"]){
             if ([[row objectAtIndex:serviceIndex] isEqualToString:@"file"])
                 [fileRows addObject:row];
         }
+        
         rows = [fileRows copy];
     }
+    [self.refreshControl endRefreshing];
+
 }
 
 - (void)didReceiveMemoryWarning {

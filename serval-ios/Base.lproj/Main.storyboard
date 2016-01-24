@@ -10,7 +10,7 @@
         <scene sceneID="ENy-DE-MIf">
             <objects>
                 <navigationController id="KCG-11-NiY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rhizome Files" id="fFp-fP-zaw"/>
+                    <tabBarItem key="tabBarItem" title="Rhizome Files" image="folder.png" id="fFp-fP-zaw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C6V-cL-S2R">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -137,7 +137,7 @@
         <scene sceneID="gvj-RC-U3b">
             <objects>
                 <navigationController id="28d-1J-fEu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Status" id="dhX-OI-i21"/>
+                    <tabBarItem key="tabBarItem" title="Status" image="edit.png" id="dhX-OI-i21"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ttS-bV-9UX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -209,4 +209,8 @@
             <point key="canvasLocation" x="-527" y="-2"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="edit.png" width="24" height="21"/>
+        <image name="folder.png" width="30" height="22"/>
+    </resources>
 </document>
