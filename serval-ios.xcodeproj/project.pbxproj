@@ -26,6 +26,20 @@
 		4783A81F1C00E0B100C6039D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E1FCC91BFD2B7700463F7F /* AppDelegate.m */; };
 		4783A8201C00E0B200C6039D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E1FCCC1BFD2B7700463F7F /* ViewController.m */; };
 		4783A8251C00E50700C6039D /* serval.conf in Resources */ = {isa = PBXBuildFile; fileRef = 4783A8231C00E42900C6039D /* serval.conf */; };
+		479084C91C5448A6002DF295 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084AB1C5448A6002DF295 /* Base64.m */; };
+		479084CA1C5448A6002DF295 /* UNIBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084AE1C5448A6002DF295 /* UNIBaseRequest.m */; };
+		479084CB1C5448A6002DF295 /* UNIBodyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084B01C5448A6002DF295 /* UNIBodyRequest.m */; };
+		479084CC1C5448A6002DF295 /* UNISimpleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084B21C5448A6002DF295 /* UNISimpleRequest.m */; };
+		479084CD1C5448A6002DF295 /* UNIHTTPBinaryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084B51C5448A6002DF295 /* UNIHTTPBinaryResponse.m */; };
+		479084CE1C5448A6002DF295 /* UNIHTTPJsonResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084B71C5448A6002DF295 /* UNIHTTPJsonResponse.m */; };
+		479084CF1C5448A6002DF295 /* UNIHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084B91C5448A6002DF295 /* UNIHTTPResponse.m */; };
+		479084D01C5448A6002DF295 /* UNIHTTPStringResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084BB1C5448A6002DF295 /* UNIHTTPStringResponse.m */; };
+		479084D11C5448A6002DF295 /* UNIJsonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084BD1C5448A6002DF295 /* UNIJsonNode.m */; };
+		479084D21C5448A6002DF295 /* UNIHTTPClientHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084BF1C5448A6002DF295 /* UNIHTTPClientHelper.m */; };
+		479084D31C5448A6002DF295 /* UNIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C11C5448A6002DF295 /* UNIHTTPRequest.m */; };
+		479084D41C5448A6002DF295 /* UNIHTTPRequestWithBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C31C5448A6002DF295 /* UNIHTTPRequestWithBody.m */; };
+		479084D51C5448A6002DF295 /* UNIRest.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C61C5448A6002DF295 /* UNIRest.m */; };
+		479084D61C5448A6002DF295 /* UNIUrlConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084C81C5448A6002DF295 /* UNIUrlConnection.m */; };
 		47E104BD1BFD3E2400463F7F /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E102ED1BFD317000463F7F /* sqlite3.c */; };
 		47E104BE1BFD3E3C00463F7F /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EA1BFD317000463F7F /* hmac.c */; };
 		47E104BF1BFD3E3C00463F7F /* verify.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E101EB1BFD317000463F7F /* verify.c */; };
@@ -195,6 +209,35 @@
 		4783A81B1C00D86F00C6039D /* paths-helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "paths-helper.c"; sourceTree = "<group>"; };
 		4783A81C1C00D86F00C6039D /* paths-helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "paths-helper.h"; sourceTree = "<group>"; };
 		4783A8231C00E42900C6039D /* serval.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = serval.conf; path = ../serval.conf; sourceTree = "<group>"; };
+		479084AA1C5448A6002DF295 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		479084AB1C5448A6002DF295 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		479084AD1C5448A6002DF295 /* UNIBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIBaseRequest.h; sourceTree = "<group>"; };
+		479084AE1C5448A6002DF295 /* UNIBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIBaseRequest.m; sourceTree = "<group>"; };
+		479084AF1C5448A6002DF295 /* UNIBodyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIBodyRequest.h; sourceTree = "<group>"; };
+		479084B01C5448A6002DF295 /* UNIBodyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIBodyRequest.m; sourceTree = "<group>"; };
+		479084B11C5448A6002DF295 /* UNISimpleRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNISimpleRequest.h; sourceTree = "<group>"; };
+		479084B21C5448A6002DF295 /* UNISimpleRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNISimpleRequest.m; sourceTree = "<group>"; };
+		479084B41C5448A6002DF295 /* UNIHTTPBinaryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIHTTPBinaryResponse.h; sourceTree = "<group>"; };
+		479084B51C5448A6002DF295 /* UNIHTTPBinaryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIHTTPBinaryResponse.m; sourceTree = "<group>"; };
+		479084B61C5448A6002DF295 /* UNIHTTPJsonResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIHTTPJsonResponse.h; sourceTree = "<group>"; };
+		479084B71C5448A6002DF295 /* UNIHTTPJsonResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIHTTPJsonResponse.m; sourceTree = "<group>"; };
+		479084B81C5448A6002DF295 /* UNIHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIHTTPResponse.h; sourceTree = "<group>"; };
+		479084B91C5448A6002DF295 /* UNIHTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIHTTPResponse.m; sourceTree = "<group>"; };
+		479084BA1C5448A6002DF295 /* UNIHTTPStringResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIHTTPStringResponse.h; sourceTree = "<group>"; };
+		479084BB1C5448A6002DF295 /* UNIHTTPStringResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIHTTPStringResponse.m; sourceTree = "<group>"; };
+		479084BC1C5448A6002DF295 /* UNIJsonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIJsonNode.h; sourceTree = "<group>"; };
+		479084BD1C5448A6002DF295 /* UNIJsonNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIJsonNode.m; sourceTree = "<group>"; };
+		479084BE1C5448A6002DF295 /* UNIHTTPClientHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIHTTPClientHelper.h; sourceTree = "<group>"; };
+		479084BF1C5448A6002DF295 /* UNIHTTPClientHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIHTTPClientHelper.m; sourceTree = "<group>"; };
+		479084C01C5448A6002DF295 /* UNIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIHTTPRequest.h; sourceTree = "<group>"; };
+		479084C11C5448A6002DF295 /* UNIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIHTTPRequest.m; sourceTree = "<group>"; };
+		479084C21C5448A6002DF295 /* UNIHTTPRequestWithBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIHTTPRequestWithBody.h; sourceTree = "<group>"; };
+		479084C31C5448A6002DF295 /* UNIHTTPRequestWithBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIHTTPRequestWithBody.m; sourceTree = "<group>"; };
+		479084C41C5448A6002DF295 /* Unirest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Unirest-Prefix.pch"; sourceTree = "<group>"; };
+		479084C51C5448A6002DF295 /* UNIRest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIRest.h; sourceTree = "<group>"; };
+		479084C61C5448A6002DF295 /* UNIRest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIRest.m; sourceTree = "<group>"; };
+		479084C71C5448A6002DF295 /* UNIUrlConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIUrlConnection.h; sourceTree = "<group>"; };
+		479084C81C5448A6002DF295 /* UNIUrlConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIUrlConnection.m; sourceTree = "<group>"; };
 		47E100F11BFD316F00463F7F /* android.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = android.c; sourceTree = "<group>"; };
 		47E100F51BFD316F00463F7F /* check-in-out-return.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "check-in-out-return.c"; sourceTree = "<group>"; };
 		47E100F61BFD316F00463F7F /* cli.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cli.c; sourceTree = "<group>"; };
@@ -598,6 +641,59 @@
 				47E6ABAF1C542253002FB36A /* ServalRest.m */,
 			);
 			name = controllers;
+			sourceTree = "<group>";
+		};
+		479084A91C5448A6002DF295 /* Unirest */ = {
+			isa = PBXGroup;
+			children = (
+				479084AA1C5448A6002DF295 /* Base64.h */,
+				479084AB1C5448A6002DF295 /* Base64.m */,
+				479084AC1C5448A6002DF295 /* HttpRequest */,
+				479084B31C5448A6002DF295 /* HttpResponse */,
+				479084BE1C5448A6002DF295 /* UNIHTTPClientHelper.h */,
+				479084BF1C5448A6002DF295 /* UNIHTTPClientHelper.m */,
+				479084C01C5448A6002DF295 /* UNIHTTPRequest.h */,
+				479084C11C5448A6002DF295 /* UNIHTTPRequest.m */,
+				479084C21C5448A6002DF295 /* UNIHTTPRequestWithBody.h */,
+				479084C31C5448A6002DF295 /* UNIHTTPRequestWithBody.m */,
+				479084C41C5448A6002DF295 /* Unirest-Prefix.pch */,
+				479084C51C5448A6002DF295 /* UNIRest.h */,
+				479084C61C5448A6002DF295 /* UNIRest.m */,
+				479084C71C5448A6002DF295 /* UNIUrlConnection.h */,
+				479084C81C5448A6002DF295 /* UNIUrlConnection.m */,
+			);
+			name = Unirest;
+			path = "serval-ios/External/unirest-obj-c/Unirest";
+			sourceTree = "<group>";
+		};
+		479084AC1C5448A6002DF295 /* HttpRequest */ = {
+			isa = PBXGroup;
+			children = (
+				479084AD1C5448A6002DF295 /* UNIBaseRequest.h */,
+				479084AE1C5448A6002DF295 /* UNIBaseRequest.m */,
+				479084AF1C5448A6002DF295 /* UNIBodyRequest.h */,
+				479084B01C5448A6002DF295 /* UNIBodyRequest.m */,
+				479084B11C5448A6002DF295 /* UNISimpleRequest.h */,
+				479084B21C5448A6002DF295 /* UNISimpleRequest.m */,
+			);
+			path = HttpRequest;
+			sourceTree = "<group>";
+		};
+		479084B31C5448A6002DF295 /* HttpResponse */ = {
+			isa = PBXGroup;
+			children = (
+				479084B41C5448A6002DF295 /* UNIHTTPBinaryResponse.h */,
+				479084B51C5448A6002DF295 /* UNIHTTPBinaryResponse.m */,
+				479084B61C5448A6002DF295 /* UNIHTTPJsonResponse.h */,
+				479084B71C5448A6002DF295 /* UNIHTTPJsonResponse.m */,
+				479084B81C5448A6002DF295 /* UNIHTTPResponse.h */,
+				479084B91C5448A6002DF295 /* UNIHTTPResponse.m */,
+				479084BA1C5448A6002DF295 /* UNIHTTPStringResponse.h */,
+				479084BB1C5448A6002DF295 /* UNIHTTPStringResponse.m */,
+				479084BC1C5448A6002DF295 /* UNIJsonNode.h */,
+				479084BD1C5448A6002DF295 /* UNIJsonNode.m */,
+			);
+			path = HttpResponse;
 			sourceTree = "<group>";
 		};
 		47E100ED1BFD316F00463F7F /* serval-dna */ = {
@@ -1207,6 +1303,7 @@
 		47E1FCB91BFD2B7700463F7F = {
 			isa = PBXGroup;
 			children = (
+				479084A91C5448A6002DF295 /* Unirest */,
 				47E100ED1BFD316F00463F7F /* serval-dna */,
 				47E1FCC41BFD2B7700463F7F /* serval-ios */,
 				47E1FCC31BFD2B7700463F7F /* Products */,
@@ -1340,6 +1437,8 @@
 				4783A81F1C00E0B100C6039D /* AppDelegate.m in Sources */,
 				4783A8201C00E0B200C6039D /* ViewController.m in Sources */,
 				4783A8081BFFE7CC00C6039D /* PROTOTYPES.c in Sources */,
+				479084D11C5448A6002DF295 /* UNIJsonNode.m in Sources */,
+				479084CE1C5448A6002DF295 /* UNIHTTPJsonResponse.m in Sources */,
 				47E104BD1BFD3E2400463F7F /* sqlite3.c in Sources */,
 				47E104C21BFD3E9500463F7F /* after.c in Sources */,
 				47E104C31BFD3E9500463F7F /* before.c in Sources */,
@@ -1376,11 +1475,13 @@
 				47E104E21BFD3E9500463F7F /* fe_sq2.c in Sources */,
 				47E104E31BFD3E9500463F7F /* fe_sub.c in Sources */,
 				47E104E41BFD3E9500463F7F /* fe_tobytes.c in Sources */,
+				479084C91C5448A6002DF295 /* Base64.m in Sources */,
 				47E104E51BFD3E9500463F7F /* ge25519.c in Sources */,
 				47E104E61BFD3E9500463F7F /* ge_add.c in Sources */,
 				47E104E71BFD3E9500463F7F /* ge_double_scalarmult.c in Sources */,
 				47E104E81BFD3E9500463F7F /* ge_frombytes.c in Sources */,
 				47E104E91BFD3E9500463F7F /* ge_madd.c in Sources */,
+				479084CF1C5448A6002DF295 /* UNIHTTPResponse.m in Sources */,
 				47E104EA1BFD3E9500463F7F /* ge_msub.c in Sources */,
 				47E104EB1BFD3E9500463F7F /* ge_p1p1_to_p2.c in Sources */,
 				47E104EC1BFD3E9500463F7F /* ge_p1p1_to_p3.c in Sources */,
@@ -1397,10 +1498,13 @@
 				47E104F71BFD3E9500463F7F /* ge_tobytes.c in Sources */,
 				47E104F81BFD3E9500463F7F /* keypair.c in Sources */,
 				47E104F91BFD3E9500463F7F /* open.c in Sources */,
+				479084CB1C5448A6002DF295 /* UNIBodyRequest.m in Sources */,
 				47E104FA1BFD3E9500463F7F /* sc25519.c in Sources */,
+				479084CD1C5448A6002DF295 /* UNIHTTPBinaryResponse.m in Sources */,
 				47E104FB1BFD3E9500463F7F /* sc_muladd.c in Sources */,
 				47E104FC1BFD3E9500463F7F /* sc_reduce.c in Sources */,
 				4783A8131BFFF01800C6039D /* sign.c in Sources */,
+				479084D41C5448A6002DF295 /* UNIHTTPRequestWithBody.m in Sources */,
 				47E104C01BFD3E4200463F7F /* hmac.c in Sources */,
 				47E104C11BFD3E4200463F7F /* verify.c in Sources */,
 				47E104BE1BFD3E3C00463F7F /* hmac.c in Sources */,
@@ -1409,6 +1513,7 @@
 				4783A80A1BFFECC700C6039D /* xor.c in Sources */,
 				4783A80B1BFFECC700C6039D /* stream.c in Sources */,
 				4783A80C1BFFECC700C6039D /* xor.c in Sources */,
+				479084D51C5448A6002DF295 /* UNIRest.m in Sources */,
 				4783A80D1BFFECC700C6039D /* stream.c in Sources */,
 				4783A80E1BFFECC700C6039D /* xor.c in Sources */,
 				4783A80F1BFFECC700C6039D /* stream.c in Sources */,
@@ -1449,6 +1554,7 @@
 				47E1051F1BFD434C00463F7F /* mdp_client.c in Sources */,
 				47E105201BFD434C00463F7F /* mdp_net.c in Sources */,
 				47E105211BFD434C00463F7F /* commandline.c in Sources */,
+				479084CA1C5448A6002DF295 /* UNIBaseRequest.m in Sources */,
 				47E105221BFD434C00463F7F /* conf_cli.c in Sources */,
 				47E105231BFD434C00463F7F /* rhizome_cli.c in Sources */,
 				47E105241BFD434C00463F7F /* keyring_cli.c in Sources */,
@@ -1459,6 +1565,7 @@
 				47E105281BFD434C00463F7F /* dna_helper.c in Sources */,
 				47E105291BFD434C00463F7F /* golay.c in Sources */,
 				47E1052A1BFD434C00463F7F /* httpd.c in Sources */,
+				479084CC1C5448A6002DF295 /* UNISimpleRequest.m in Sources */,
 				47E1052B1BFD434C00463F7F /* http_server.c in Sources */,
 				47E1052C1BFD434C00463F7F /* keyring.c in Sources */,
 				47E1052D1BFD434C00463F7F /* log.c in Sources */,
@@ -1470,6 +1577,7 @@
 				47E105341BFD434C00463F7F /* msp_client.c in Sources */,
 				47E105351BFD434C00463F7F /* msp_proxy.c in Sources */,
 				47E105361BFD434C00463F7F /* monitor.c in Sources */,
+				479084D61C5448A6002DF295 /* UNIUrlConnection.m in Sources */,
 				47E105371BFD434C00463F7F /* monitor-client.c in Sources */,
 				47E105381BFD434C00463F7F /* monitor-cli.c in Sources */,
 				47E105391BFD434C00463F7F /* overlay_address.c in Sources */,
@@ -1480,6 +1588,7 @@
 				47E1053E1BFD434C00463F7F /* overlay_queue.c in Sources */,
 				47E1053F1BFD434C00463F7F /* overlay_mdp.c in Sources */,
 				47E105401BFD434C00463F7F /* overlay_mdp_services.c in Sources */,
+				479084D31C5448A6002DF295 /* UNIHTTPRequest.m in Sources */,
 				47E105411BFD434C00463F7F /* mdp_filter.c in Sources */,
 				47E105421BFD434C00463F7F /* overlay_olsr.c in Sources */,
 				47E105431BFD434C00463F7F /* overlay_packetformats.c in Sources */,
@@ -1488,6 +1597,7 @@
 				47E105461BFD434C00463F7F /* rhizome.c in Sources */,
 				47E105471BFD434C00463F7F /* rhizome_bundle.c in Sources */,
 				47E105481BFD434C00463F7F /* rhizome_crypto.c in Sources */,
+				479084D21C5448A6002DF295 /* UNIHTTPClientHelper.m in Sources */,
 				47E105491BFD434C00463F7F /* rhizome_database.c in Sources */,
 				47E6ABB31C54367C002FB36A /* ServalWebViewController.m in Sources */,
 				47E1054A1BFD434C00463F7F /* rhizome_direct.c in Sources */,
@@ -1496,6 +1606,7 @@
 				47E1054D1BFD434C00463F7F /* rhizome_http.c in Sources */,
 				47E1054E1BFD434C00463F7F /* rhizome_restful.c in Sources */,
 				47E6ABB01C542253002FB36A /* ServalRest.m in Sources */,
+				479084D01C5448A6002DF295 /* UNIHTTPStringResponse.m in Sources */,
 				47E1054F1BFD434C00463F7F /* rhizome_packetformats.c in Sources */,
 				47E105501BFD434C00463F7F /* rhizome_store.c in Sources */,
 				47E105511BFD434C00463F7F /* rhizome_sync.c in Sources */,

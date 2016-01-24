@@ -7,6 +7,7 @@
 //
 
 #import "RhizomeFilesTableViewController.h"
+#import <UNIRest.h>
 
 
 @interface RhizomeFilesTableViewController ()
@@ -15,20 +16,83 @@
 
 @implementation RhizomeFilesTableViewController
 
+NSArray* header;
+NSArray* rows;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    NSError *error = nil;
+    UNIHTTPJsonResponse *response = [[UNIRest get:^(UNISimpleRequest *request) {
+        [request setUrl:@"http://localhost:4110/restful/rhizome/bundlelist.json"];
+        [request setUsername:@"ios"];
+        [request setPassword:@"password"];
+    }] asJson:&error];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if(error){
+        NSLog(@"Request failed: %@", error.localizedDescription);
+    } else {
+        NSString *responseStr = [[NSString alloc] initWithData:[response rawBody] encoding: NSASCIIStringEncoding];
+        NSLog(@"Response: %@", responseStr);
+        NSLog(@"Response sucessful!");
+        header = [response.body.object objectForKey:@"header"];
+        
+        NSInteger serviceIndex = [self indexOfField:@"service"];
+        NSMutableArray *fileRows = [[NSMutableArray alloc] init];
+        for(NSArray* row in [response.body.object objectForKey:@"rows"]){
+            if ([[row objectAtIndex:serviceIndex] isEqualToString:@"file"])
+                [fileRows addObject:row];
+        }
+        rows = [fileRows copy];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - rhizome response access methods
+
+- (NSInteger) indexOfField:(NSString*) field {
+    for (int i = 0; i < [header count]; i++){
+        if ( [[header objectAtIndex:i] isEqualToString: field] ){
+            return i;
+        }
+    }
+    return -1;
+}
+
+- (NSInteger) rhizomeFileCount{
+    NSInteger serviceIndex = [self indexOfField:@"service"];
+    NSInteger count = 0;
+    for (NSArray* row in rows) {
+        if ([[row objectAtIndex:serviceIndex] isEqualToString:@"file"]) count++;
+    }
+    return count;
+}
+
+- (NSString*) valueForField:(NSString*) field inRow:(NSInteger) rowNo{
+    NSInteger index = [self indexOfField:field];
+    if (index == -1) return nil;
+
+    NSArray* row = [rows objectAtIndex:rowNo];
+    if (row == nil) return @"Row is nil.";
+    NSString* value = [row objectAtIndex:index];
+    if(value == nil) return @"Value is nil.";
+    if([value class] == [NSNull class]) return @"NSNull value";
+    return value;
+}
+
+- (NSString*) valueForIndex:(NSInteger) index inRow:(NSInteger) rowNo{
+    NSArray* row = [rows objectAtIndex:rowNo];
+    if (row == nil) return @"Row is nil.";
+    NSString* value = [row objectAtIndex:index];
+    if(value == nil) return @"Value is nil.";
+    if([value class] == [NSNull class]) return @"NSNull value";
+    return value;
+}
+
 
 #pragma mark - Table view data source
 
@@ -37,14 +101,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [rows count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RhizomeFilesCell" forIndexPath:indexPath];
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"Rhizome file %i", indexPath.row]];
+    [cell.textLabel setText:[self valueForField:@"name" inRow:indexPath.row]];
     
     return cell;
 }

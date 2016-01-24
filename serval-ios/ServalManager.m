@@ -102,8 +102,8 @@ NSString* confPath;
 #pragma mark serval daemon start/stops
 
 - (void)startServald {
-    [self testOrCopyConfig];
-//    [self overwriteConfig];
+//    [self testOrCopyConfig];
+    [self overwriteConfig];
     [self wipeLogs];
     
     

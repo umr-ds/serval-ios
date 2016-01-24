@@ -7,6 +7,23 @@
     </dependencies>
     <scenes>
         <!--Rhizome Files-->
+        <scene sceneID="ENy-DE-MIf">
+            <objects>
+                <navigationController id="KCG-11-NiY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Rhizome Files" id="fFp-fP-zaw"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C6V-cL-S2R">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="De9-kV-had" kind="relationship" relationship="rootViewController" id="DFq-jH-efG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kvd-QH-O2y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="293" y="335"/>
+        </scene>
+        <!--Rhizome Files-->
         <scene sceneID="ULv-ub-E9u">
             <objects>
                 <tableViewController id="De9-kV-had" customClass="RhizomeFilesTableViewController" sceneMemberID="viewController">
@@ -16,7 +33,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RhizomeFilesCell" textLabel="7V0-23-VCt" rowHeight="47" style="IBUITableViewCellStyleDefault" id="5wt-7k-ktp">
-                                <rect key="frame" x="0.0" y="28" width="600" height="47"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="47"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5wt-7k-ktp" id="6xR-0p-NCP">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="46.5"/>
@@ -39,10 +56,11 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Rhizome Files" id="c34-3m-KTm"/>
+                    <navigationItem key="navigationItem" id="XcM-uW-fQv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TPI-Yg-SGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="293" y="341"/>
+            <point key="canvasLocation" x="1045" y="345"/>
         </scene>
         <!--Status-->
         <scene sceneID="xQO-Zk-Crc">
@@ -136,7 +154,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="6gK-Hz-9dj" kind="relationship" relationship="viewControllers" id="pgk-wM-x6L"/>
-                        <segue destination="De9-kV-had" kind="relationship" relationship="viewControllers" id="hlF-fs-kpI"/>
+                        <segue destination="KCG-11-NiY" kind="relationship" relationship="viewControllers" id="Uv2-JD-mM4"/>
                         <segue destination="x5V-Ei-U1z" kind="relationship" relationship="viewControllers" id="qMB-YN-L6R"/>
                     </connections>
                 </tabBarController>
