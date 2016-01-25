@@ -1,15 +1,18 @@
 {
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "246CA97DF6611BA4F3412F18C35C9C7A20D97A1E" : 0,
-    "D74CC6D62CB024B044BB688FF3169DF832E33AEC" : 0
+    "D74CC6D62CB024B044BB688FF3169DF832E33AEC" : 0,
+    "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A2B5D50B-DAE7-4FC3-889D-0F027D93B548",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "246CA97DF6611BA4F3412F18C35C9C7A20D97A1E" : "serval-ios\/serval-ios\/External\/serval-dna\/",
-    "D74CC6D62CB024B044BB688FF3169DF832E33AEC" : "serval-ios\/serval-ios\/External\/unirest-obj-c\/"
+    "D74CC6D62CB024B044BB688FF3169DF832E33AEC" : "serval-ios\/serval-ios\/External\/unirest-obj-c\/",
+    "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD" : "serval-ios\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "serval-ios",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -19,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:umr-studenten\/serval-dna.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "246CA97DF6611BA4F3412F18C35C9C7A20D97A1E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:umr-studenten\/serval-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Mashape\/unirest-obj-c.git",

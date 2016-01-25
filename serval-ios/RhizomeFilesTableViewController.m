@@ -10,6 +10,8 @@
 #import "RhizomeFileDetailViewController.h"
 #import "ServalManager.h"
 #import <UNIRest.h>
+@import MobileCoreServices;
+@import Photos;
 
 
 @interface RhizomeFilesTableViewController ()
@@ -185,6 +187,81 @@ NSTimer* refreshTimer;
     else [detailLabel setText:[NSString stringWithFormat:@"%@", [self valueForField:@"sender" inRow:indexPath.row]]];
     
     return cell;
+}
+
+#pragma mark - Image picker methods
+
+- (IBAction)addButtonPressed:(id)sender {
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+    
+//    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    if(![info objectForKey:UIImagePickerControllerOriginalImage]) {
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
+    // Get the image name from PhotoKit
+    NSURL *pickedImageUrl = [info objectForKey:UIImagePickerControllerReferenceURL];
+    NSMutableString *pickedImageName = [[NSMutableString alloc] init];
+    NSMutableData *pickedImageData = [[NSMutableData alloc] init];
+    
+    PHAsset *pickedImageAsset = [[PHAsset fetchAssetsWithALAssetURLs:@[pickedImageUrl] options:nil] firstObject];
+    PHImageRequestOptions *imageRequestOptions = [[PHImageRequestOptions alloc] init];
+    [imageRequestOptions setSynchronous:YES];
+    [[PHImageManager defaultManager]
+        requestImageDataForAsset:pickedImageAsset
+                         options:imageRequestOptions
+                   resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+                       NSURL *pickedImagePath = [info objectForKey:@"PHImageFileURLKey"];
+                       [pickedImageName appendString:[pickedImagePath lastPathComponent]];
+                       [pickedImageData appendData:imageData];
+                   }];
+    
+
+    ServalManager *m = [ServalManager sharedManager];
+    
+    NSString *BoundaryConstant = @"----------V2ymHFg03ehbqgZCaKO6jy";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
+    
+    NSMutableData *body = [NSMutableData data];
+    // add filename
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"manifest\"; filename=\"%@\"\r\n", pickedImageName] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Type: rhizome/manifest\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    // add binary data
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"payload\"; filename=\"%@\"\r\n", pickedImageName] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:pickedImageData];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSError *error = nil;
+    UNIHTTPJsonResponse *response = [[UNIRest postEntity:^(UNIBodyRequest *request) {
+        [request setHeaders:@{@"Content-Type": contentType}];
+        [request setUrl:@"http://localhost:4110/restful/rhizome/insert"];
+        [request setUsername:[m restUser]];
+        [request setPassword:[m restPassword]];
+        [request setBody:body];
+    }] asJson:&error];
+    
+    if(error){
+        NSLog(@"Rhizome upload failed: %@", error.localizedDescription);
+        return;
+    }
+    
+    NSLog(@"Rhizome upload sucessful for image: %@", pickedImageName);
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RhizomeFilesTableViewController : UITableViewController
+@interface RhizomeFilesTableViewController : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
