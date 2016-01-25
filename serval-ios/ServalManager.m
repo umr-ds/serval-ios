@@ -116,6 +116,7 @@ NSString* confPath;
 //    [self testOrCopyConfig];
     [self overwriteConfig];
     [self wipeLogs];
+    [self wipeRhizomeDB];
     
     
     if(servaldThread == nil || [servaldThread isCancelled] || [servaldThread isFinished]){

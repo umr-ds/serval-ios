@@ -22,6 +22,7 @@ NSArray* header;
 NSArray* rows;
 NSString* servalUser = @"ios";
 NSString* servalPassword = @"password";
+NSTimer* refreshTimer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,11 +30,37 @@ NSString* servalPassword = @"password";
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor purpleColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
-    [self.refreshControl addTarget:self action:@selector(refreshBundlelist) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(pulledToRefresh) forControlEvents:UIControlEventValueChanged];
     
     [self refreshBundlelist];
+    [self.tableView reloadData];
     
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        while(true){
+            [NSThread sleepForTimeInterval: 1];
+            if (self.isViewLoaded && self.view.window) {
+                // viewController is visible
+                [self refreshBundlelist];
+                dispatch_async(dispatch_get_main_queue(), ^{[self.tableView reloadData];});
+            }
+        }
+    });
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    NSLog(@"viewDidAppear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    
+    NSLog(@"viewDidDisappear");
+}
+
+- (void)pulledToRefresh{
+    [self refreshBundlelist];
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
+}
 
 - (void)refreshBundlelist{
     ServalManager *m = [ServalManager sharedManager];
@@ -82,8 +109,6 @@ NSString* servalPassword = @"password";
         rows = [fileRows copy];
     }
     
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
