@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "246CA97DF6611BA4F3412F18C35C9C7A20D97A1E" : 0,
+    "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "054296F2-CAA2-41FB-861B-238651CB752B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "246CA97DF6611BA4F3412F18C35C9C7A20D97A1E" : "serval-ios\/serval-ios\/External\/serval-dna\/",
+    "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD" : "serval-ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "serval-ios",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "serval-ios.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:umr-studenten\/serval-dna.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "246CA97DF6611BA4F3412F18C35C9C7A20D97A1E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:umr-studenten\/serval-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5CE2428E771DBEE7EE50545CAB8729D7E46D23DD"
+    }
+  ]
+}

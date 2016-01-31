@@ -1,0 +1,16 @@
+PODS:
+  - JSQMessagesViewController (7.2.0):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
+  - Unirest (1.1.4)
+
+DEPENDENCIES:
+  - JSQMessagesViewController
+  - Unirest
+
+SPEC CHECKSUMS:
+  JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  Unirest: 5e4d93eaf32463bf619a4ecd3bbc8c32acf21eac
+
+COCOAPODS: 0.39.0

@@ -7,8 +7,7 @@
 //
 
 #import "ServalManager.h"
-#import "UNIHTTPJsonResponse.h"
-#import "UNIRest.h"
+#import <UNIRest.h>
 
 // copied from serval_main.c
 #include <signal.h>
