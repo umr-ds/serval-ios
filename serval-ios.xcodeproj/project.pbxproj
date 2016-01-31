@@ -193,6 +193,7 @@
 		47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD11BFD2B7700463F7F /* Assets.xcassets */; };
 		47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD31BFD2B7700463F7F /* LaunchScreen.storyboard */; };
 		47E6ABAD1C53C8BB002FB36A /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E6ABAC1C53C8BB002FB36A /* LogViewController.m */; };
+		47FFC7391C5EAF6F005002CF /* MeshMSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FFC7381C5EAF6F005002CF /* MeshMSTableViewController.m */; };
 		8FD58DE311E826D104295247 /* libPods-serval-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66867DE16898E8A37F8D1863 /* libPods-serval-ios.a */; };
 /* End PBXBuildFile section */
 
@@ -597,6 +598,8 @@
 		47E1FCD61BFD2B7700463F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47E6ABAB1C53C8BB002FB36A /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		47E6ABAC1C53C8BB002FB36A /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
+		47FFC7371C5EAF6F005002CF /* MeshMSTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshMSTableViewController.h; sourceTree = "<group>"; };
+		47FFC7381C5EAF6F005002CF /* MeshMSTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeshMSTableViewController.m; sourceTree = "<group>"; };
 		5E7EF6DF57D24F5282ACC7ED /* Pods-serval-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-serval-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-serval-ios/Pods-serval-ios.release.xcconfig"; sourceTree = "<group>"; };
 		66867DE16898E8A37F8D1863 /* libPods-serval-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-serval-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1305,6 +1308,8 @@
 				479084DB1C546B89002DF295 /* ServalStatusViewController.m */,
 				47C543841C554C2D00B37EA8 /* KeyValueTableViewController.h */,
 				47C543851C554C2D00B37EA8 /* KeyValueTableViewController.m */,
+				47FFC7371C5EAF6F005002CF /* MeshMSTableViewController.h */,
+				47FFC7381C5EAF6F005002CF /* MeshMSTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1485,6 +1490,7 @@
 				47E104D61BFD3E9500463F7F /* fe_1.c in Sources */,
 				47E104D71BFD3E9500463F7F /* fe_add.c in Sources */,
 				47E104D81BFD3E9500463F7F /* fe_cmov.c in Sources */,
+				47FFC7391C5EAF6F005002CF /* MeshMSTableViewController.m in Sources */,
 				47E104D91BFD3E9500463F7F /* fe_copy.c in Sources */,
 				47E104DA1BFD3E9500463F7F /* fe_frombytes.c in Sources */,
 				47E6ABAD1C53C8BB002FB36A /* LogViewController.m in Sources */,

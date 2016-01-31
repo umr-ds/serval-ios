@@ -64,7 +64,7 @@
         }
     }
     
-    [KeyValueTableViewController presentTableViewForKeys:values values:keys fromView:self withTitle:@"servald.conf"];
+    [KeyValueTableViewController presentTableViewForKeys:keys values:values fromView:self withTitle:@"servald.conf"];
     
 }
 
