@@ -35,9 +35,8 @@
     
     NSDictionary* messageDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/messagelist.json", conv.my_sid, conv.their_sid]];
     NSArray *header = [messageDict objectForKey:@"header"];
-    
-    for(NSArray* row in [messageDict objectForKey:@"rows"]){
-        
+
+    for(NSArray* row in [[messageDict objectForKey:@"rows"] reverseObjectEnumerator]){
         MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
         [conv.messages addObject:msg];
     }

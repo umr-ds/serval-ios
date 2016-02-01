@@ -176,7 +176,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="KeyValueCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="KeyValueCell" textLabel="va4-IC-ojF" detailTextLabel="dh9-YW-etf" style="IBUITableViewCellStyleValue1" id="j2j-VV-r6Z">
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="KeyValueCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="KeyValueCell" textLabel="va4-IC-ojF" detailTextLabel="dh9-YW-etf" style="IBUITableViewCellStyleValue1" id="j2j-VV-r6Z">
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j2j-VV-r6Z" id="9ER-Uz-Sgv">

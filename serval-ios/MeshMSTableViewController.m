@@ -75,7 +75,7 @@
     MeshMSConversation *conv = [self.meshConversations objectAtIndex:indexPath.row];
     
     ServalIdentity *them = [[ServalIdentity alloc] initWithSid:conv.their_sid];
-    MeshMSMessage *latestMessage = [conv.messages firstObject];
+    MeshMSMessage *latestMessage = [conv.messages lastObject];
     
     [cell.textLabel setText:[them readableName]];
     [cell.detailTextLabel setText:latestMessage.text];
