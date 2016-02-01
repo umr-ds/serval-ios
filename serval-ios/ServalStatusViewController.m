@@ -51,9 +51,8 @@
 - (IBAction)configButtonPressed:(id)sender {
     NSMutableArray *keys = [[NSMutableArray alloc] init];
     NSMutableArray *values = [[NSMutableArray alloc] init];
-    ServalManager *m = [ServalManager sharedManager];
     
-    NSString* config = [m getConfig];
+    NSString* config = [ServalManager getConfig];
     NSArray* lines = [config componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
     
     for(NSString* line in lines){

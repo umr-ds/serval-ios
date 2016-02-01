@@ -17,9 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    ServalManager* manager = [ServalManager sharedManager];
-    [manager startServald];
-    
+    [ServalManager startServald];
     return YES;
 }
 

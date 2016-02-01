@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47248E6E1C5EC38100C63B62 /* RhizomeBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 47248E6D1C5EC38100C63B62 /* RhizomeBundle.m */; };
 		472C97381C22AD6600688796 /* RhizomeFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 472C97371C22AD6600688796 /* RhizomeFilesTableViewController.m */; };
 		472C973C1C22B67900688796 /* ServalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 472C973B1C22B67900688796 /* ServalManager.m */; };
 		4783A8081BFFE7CC00C6039D /* PROTOTYPES.c in Sources */ = {isa = PBXBuildFile; fileRef = 47E102A81BFD317000463F7F /* PROTOTYPES.c */; };
@@ -193,12 +194,21 @@
 		47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD11BFD2B7700463F7F /* Assets.xcassets */; };
 		47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E1FCD31BFD2B7700463F7F /* LaunchScreen.storyboard */; };
 		47E6ABAD1C53C8BB002FB36A /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E6ABAC1C53C8BB002FB36A /* LogViewController.m */; };
+		47F491101C5FB80800E73710 /* ServalManager+RestfulRhizome.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F4910F1C5FB80800E73710 /* ServalManager+RestfulRhizome.m */; };
+		47F491131C5FB96400E73710 /* ServalManager+Restful.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F491121C5FB96400E73710 /* ServalManager+Restful.m */; };
+		47F491161C5FBA7400E73710 /* ServalIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F491151C5FBA7400E73710 /* ServalIdentity.m */; };
+		47F4911C1C5FCA6300E73710 /* ServalManager+RestfulMeshMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F4911B1C5FCA6300E73710 /* ServalManager+RestfulMeshMS.m */; };
+		47F4911F1C5FCB7C00E73710 /* MeshMSConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F4911E1C5FCB7C00E73710 /* MeshMSConversation.m */; };
+		47F491221C5FCB8E00E73710 /* MeshMSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F491211C5FCB8E00E73710 /* MeshMSMessage.m */; };
+		47F491251C5FF20200E73710 /* MeshConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F491241C5FF20200E73710 /* MeshConversationViewController.m */; };
 		47FFC7391C5EAF6F005002CF /* MeshMSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FFC7381C5EAF6F005002CF /* MeshMSTableViewController.m */; };
 		8FD58DE311E826D104295247 /* libPods-serval-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66867DE16898E8A37F8D1863 /* libPods-serval-ios.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E1959F660025C2E534B4944 /* Pods-serval-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-serval-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-serval-ios/Pods-serval-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		47248E6C1C5EC38100C63B62 /* RhizomeBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RhizomeBundle.h; sourceTree = "<group>"; };
+		47248E6D1C5EC38100C63B62 /* RhizomeBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RhizomeBundle.m; sourceTree = "<group>"; };
 		472C97361C22AD6600688796 /* RhizomeFilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RhizomeFilesTableViewController.h; sourceTree = "<group>"; };
 		472C97371C22AD6600688796 /* RhizomeFilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RhizomeFilesTableViewController.m; sourceTree = "<group>"; };
 		472C973A1C22B67900688796 /* ServalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServalManager.h; sourceTree = "<group>"; };
@@ -598,6 +608,20 @@
 		47E1FCD61BFD2B7700463F7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47E6ABAB1C53C8BB002FB36A /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		47E6ABAC1C53C8BB002FB36A /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
+		47F4910E1C5FB80800E73710 /* ServalManager+RestfulRhizome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ServalManager+RestfulRhizome.h"; sourceTree = "<group>"; };
+		47F4910F1C5FB80800E73710 /* ServalManager+RestfulRhizome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ServalManager+RestfulRhizome.m"; sourceTree = "<group>"; };
+		47F491111C5FB96400E73710 /* ServalManager+Restful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ServalManager+Restful.h"; sourceTree = "<group>"; };
+		47F491121C5FB96400E73710 /* ServalManager+Restful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ServalManager+Restful.m"; sourceTree = "<group>"; };
+		47F491141C5FBA7400E73710 /* ServalIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServalIdentity.h; sourceTree = "<group>"; };
+		47F491151C5FBA7400E73710 /* ServalIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalIdentity.m; sourceTree = "<group>"; };
+		47F4911A1C5FCA6300E73710 /* ServalManager+RestfulMeshMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ServalManager+RestfulMeshMS.h"; sourceTree = "<group>"; };
+		47F4911B1C5FCA6300E73710 /* ServalManager+RestfulMeshMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ServalManager+RestfulMeshMS.m"; sourceTree = "<group>"; };
+		47F4911D1C5FCB7C00E73710 /* MeshMSConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshMSConversation.h; sourceTree = "<group>"; };
+		47F4911E1C5FCB7C00E73710 /* MeshMSConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeshMSConversation.m; sourceTree = "<group>"; };
+		47F491201C5FCB8E00E73710 /* MeshMSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshMSMessage.h; sourceTree = "<group>"; };
+		47F491211C5FCB8E00E73710 /* MeshMSMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeshMSMessage.m; sourceTree = "<group>"; };
+		47F491231C5FF20200E73710 /* MeshConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshConversationViewController.h; sourceTree = "<group>"; };
+		47F491241C5FF20200E73710 /* MeshConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeshConversationViewController.m; sourceTree = "<group>"; };
 		47FFC7371C5EAF6F005002CF /* MeshMSTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshMSTableViewController.h; sourceTree = "<group>"; };
 		47FFC7381C5EAF6F005002CF /* MeshMSTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeshMSTableViewController.m; sourceTree = "<group>"; };
 		5E7EF6DF57D24F5282ACC7ED /* Pods-serval-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-serval-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-serval-ios/Pods-serval-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -616,13 +640,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		472C97391C22B63800688796 /* controllers */ = {
+		47248E6F1C5EC38800C63B62 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				47248E6C1C5EC38100C63B62 /* RhizomeBundle.h */,
+				47248E6D1C5EC38100C63B62 /* RhizomeBundle.m */,
+				47F491141C5FBA7400E73710 /* ServalIdentity.h */,
+				47F491151C5FBA7400E73710 /* ServalIdentity.m */,
+				47F4911D1C5FCB7C00E73710 /* MeshMSConversation.h */,
+				47F4911E1C5FCB7C00E73710 /* MeshMSConversation.m */,
+				47F491201C5FCB8E00E73710 /* MeshMSMessage.h */,
+				47F491211C5FCB8E00E73710 /* MeshMSMessage.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		472C97391C22B63800688796 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				472C973A1C22B67900688796 /* ServalManager.h */,
 				472C973B1C22B67900688796 /* ServalManager.m */,
+				47F491111C5FB96400E73710 /* ServalManager+Restful.h */,
+				47F491121C5FB96400E73710 /* ServalManager+Restful.m */,
+				47F4910E1C5FB80800E73710 /* ServalManager+RestfulRhizome.h */,
+				47F4910F1C5FB80800E73710 /* ServalManager+RestfulRhizome.m */,
+				47F4911A1C5FCA6300E73710 /* ServalManager+RestfulMeshMS.h */,
+				47F4911B1C5FCA6300E73710 /* ServalManager+RestfulMeshMS.m */,
 			);
-			name = controllers;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		479084DD1C547281002DF295 /* icons */ = {
@@ -1267,8 +1312,9 @@
 		47E1FCC41BFD2B7700463F7F /* serval-ios */ = {
 			isa = PBXGroup;
 			children = (
+				47248E6F1C5EC38800C63B62 /* Model */,
+				472C97391C22B63800688796 /* Controller */,
 				47E6ABA61C53C713002FB36A /* ViewControllers */,
-				472C97391C22B63800688796 /* controllers */,
 				4783A8231C00E42900C6039D /* serval.conf */,
 				47E1FCC81BFD2B7700463F7F /* AppDelegate.h */,
 				47E1FCC91BFD2B7700463F7F /* AppDelegate.m */,
@@ -1300,16 +1346,18 @@
 			children = (
 				472C97361C22AD6600688796 /* RhizomeFilesTableViewController.h */,
 				472C97371C22AD6600688796 /* RhizomeFilesTableViewController.m */,
-				47E6ABAB1C53C8BB002FB36A /* LogViewController.h */,
-				47E6ABAC1C53C8BB002FB36A /* LogViewController.m */,
 				479084D71C5460A7002DF295 /* RhizomeFileDetailViewController.h */,
 				479084D81C5460A7002DF295 /* RhizomeFileDetailViewController.m */,
+				47FFC7371C5EAF6F005002CF /* MeshMSTableViewController.h */,
+				47FFC7381C5EAF6F005002CF /* MeshMSTableViewController.m */,
+				47F491231C5FF20200E73710 /* MeshConversationViewController.h */,
+				47F491241C5FF20200E73710 /* MeshConversationViewController.m */,
+				47E6ABAB1C53C8BB002FB36A /* LogViewController.h */,
+				47E6ABAC1C53C8BB002FB36A /* LogViewController.m */,
 				479084DA1C546B89002DF295 /* ServalStatusViewController.h */,
 				479084DB1C546B89002DF295 /* ServalStatusViewController.m */,
 				47C543841C554C2D00B37EA8 /* KeyValueTableViewController.h */,
 				47C543851C554C2D00B37EA8 /* KeyValueTableViewController.m */,
-				47FFC7371C5EAF6F005002CF /* MeshMSTableViewController.h */,
-				47FFC7381C5EAF6F005002CF /* MeshMSTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1490,6 +1538,7 @@
 				47E104D61BFD3E9500463F7F /* fe_1.c in Sources */,
 				47E104D71BFD3E9500463F7F /* fe_add.c in Sources */,
 				47E104D81BFD3E9500463F7F /* fe_cmov.c in Sources */,
+				47F4911C1C5FCA6300E73710 /* ServalManager+RestfulMeshMS.m in Sources */,
 				47FFC7391C5EAF6F005002CF /* MeshMSTableViewController.m in Sources */,
 				47E104D91BFD3E9500463F7F /* fe_copy.c in Sources */,
 				47E104DA1BFD3E9500463F7F /* fe_frombytes.c in Sources */,
@@ -1511,6 +1560,7 @@
 				47E104E91BFD3E9500463F7F /* ge_madd.c in Sources */,
 				47E104EA1BFD3E9500463F7F /* ge_msub.c in Sources */,
 				47E104EB1BFD3E9500463F7F /* ge_p1p1_to_p2.c in Sources */,
+				47248E6E1C5EC38100C63B62 /* RhizomeBundle.m in Sources */,
 				47E104EC1BFD3E9500463F7F /* ge_p1p1_to_p3.c in Sources */,
 				47E104ED1BFD3E9500463F7F /* ge_p2_0.c in Sources */,
 				47E104EE1BFD3E9500463F7F /* ge_p2_dbl.c in Sources */,
@@ -1541,6 +1591,7 @@
 				4783A80D1BFFECC700C6039D /* stream.c in Sources */,
 				4783A80E1BFFECC700C6039D /* xor.c in Sources */,
 				4783A80F1BFFECC700C6039D /* stream.c in Sources */,
+				47F491221C5FCB8E00E73710 /* MeshMSMessage.m in Sources */,
 				4783A8101BFFECC700C6039D /* xor.c in Sources */,
 				4783A8111BFFECC700C6039D /* verify.c in Sources */,
 				4783A8121BFFECC700C6039D /* verify.c in Sources */,
@@ -1560,6 +1611,7 @@
 				47E1050E1BFD434C00463F7F /* mem.c in Sources */,
 				47E1050F1BFD434C00463F7F /* net.c in Sources */,
 				4783A81D1C00D86F00C6039D /* paths-helper.c in Sources */,
+				47F491131C5FB96400E73710 /* ServalManager+Restful.m in Sources */,
 				47E105101BFD434C00463F7F /* os.c in Sources */,
 				47E105111BFD434C00463F7F /* performance_timing.c in Sources */,
 				47E105121BFD434C00463F7F /* randombytes.c in Sources */,
@@ -1598,13 +1650,16 @@
 				47E105331BFD434C00463F7F /* meshms_restful.c in Sources */,
 				47E105341BFD434C00463F7F /* msp_client.c in Sources */,
 				47E105351BFD434C00463F7F /* msp_proxy.c in Sources */,
+				47F491161C5FBA7400E73710 /* ServalIdentity.m in Sources */,
 				47E105361BFD434C00463F7F /* monitor.c in Sources */,
 				47E105371BFD434C00463F7F /* monitor-client.c in Sources */,
 				47E105381BFD434C00463F7F /* monitor-cli.c in Sources */,
 				47E105391BFD434C00463F7F /* overlay_address.c in Sources */,
+				47F491251C5FF20200E73710 /* MeshConversationViewController.m in Sources */,
 				47E1053A1BFD434C00463F7F /* overlay_buffer.c in Sources */,
 				47E1053B1BFD434C00463F7F /* overlay_interface.c in Sources */,
 				47E1053C1BFD434C00463F7F /* overlay_link.c in Sources */,
+				47F491101C5FB80800E73710 /* ServalManager+RestfulRhizome.m in Sources */,
 				47E1053D1BFD434C00463F7F /* overlay_packetradio.c in Sources */,
 				47E1053E1BFD434C00463F7F /* overlay_queue.c in Sources */,
 				47E1053F1BFD434C00463F7F /* overlay_mdp.c in Sources */,
@@ -1629,6 +1684,7 @@
 				47E105521BFD434C00463F7F /* serval_packetvisualise.c in Sources */,
 				47E105531BFD434C00463F7F /* server.c in Sources */,
 				47E105541BFD434C00463F7F /* server_httpd.c in Sources */,
+				47F4911F1C5FCB7C00E73710 /* MeshMSConversation.m in Sources */,
 				47E105551BFD434C00463F7F /* vomp.c in Sources */,
 				47E105561BFD434C00463F7F /* vomp_console.c in Sources */,
 				47E105571BFD436900463F7F /* ccsds_tables.c in Sources */,
@@ -1773,7 +1829,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = (
 					"-g",
-					"-O2",
 					"-fstack-protector",
 					"--param=ssp-buffer-size=4",
 					"-DSQLITE_THREADSAFE=0",
@@ -1818,7 +1873,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = (
 					"-g",
-					"-O2",
 					"-fstack-protector",
 					"--param=ssp-buffer-size=4",
 					"-DSQLITE_THREADSAFE=0",

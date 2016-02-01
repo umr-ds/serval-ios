@@ -7,9 +7,12 @@
 //
 
 #import "MeshMSTableViewController.h"
-#import "ServalManager.h"
+#import "ServalManager+RestfulMeshMS.h"
+#import "MeshConversationViewController.h"
 
 @interface MeshMSTableViewController ()
+
+@property (nonatomic, strong) NSArray *meshConversations;
 
 @end
 
@@ -18,10 +21,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ServalManager *manager = [ServalManager sharedManager];
-    NSDictionary *meshMSList = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"meshms/%@/conversationlist.json", manager.sid]];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor purpleColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self action:@selector(pulledToRefresh) forControlEvents:UIControlEventValueChanged];
     
+
+    [self refreshMeshConversations];
+    [self.tableView reloadData];
     
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        while(true){
+            [NSThread sleepForTimeInterval: 1];
+            if (self.isViewLoaded && self.view.window) {
+                // viewController is visible
+                [self refreshMeshConversations];
+                dispatch_async(dispatch_get_main_queue(), ^{[self.tableView reloadData];});
+            }
+        }
+    });
+}
+
+
+- (void)pulledToRefresh{
+    [self refreshMeshConversations];
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
+}
+
+- (void)refreshMeshConversations{
+    self.meshConversations = [ServalManager getMeshConversationList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,23 +61,32 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 4;
+    return [self.meshConversations count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConversationListCell" forIndexPath:indexPath];
     
+    MeshMSConversation *conv = [self.meshConversations objectAtIndex:indexPath.row];
     
-    [cell.textLabel setText:@"Cell..."];
+    ServalIdentity *them = [[ServalIdentity alloc] initWithSid:conv.their_sid];
+    MeshMSMessage *latestMessage = [conv.messages firstObject];
+    
+    [cell.textLabel setText:[them readableName]];
+    [cell.detailTextLabel setText:latestMessage.text];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MeshConversationViewController *vc = [MeshConversationViewController messagesViewController];
+    vc.conversation = [self.meshConversations objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

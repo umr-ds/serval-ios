@@ -8,7 +8,8 @@
 
 #import "RhizomeFilesTableViewController.h"
 #import "RhizomeFileDetailViewController.h"
-#import "ServalManager.h"
+#import "ServalManager+RestfulRhizome.h"
+#import "RhizomeBundle.h"
 #import <UNIRest.h>
 @import MobileCoreServices;
 @import Photos;
@@ -20,11 +21,8 @@
 
 @implementation RhizomeFilesTableViewController
 
-NSArray* header;
-NSArray* rows;
-NSString* servalUser = @"ios";
-NSString* servalPassword = @"password";
-NSTimer* refreshTimer;
+//NSTimer* refreshTimer;
+NSArray* rhizomeBundles;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,14 +47,14 @@ NSTimer* refreshTimer;
     });
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    NSLog(@"viewDidAppear");
-}
-
-- (void)viewDidDisappear:(BOOL)animated{
-    
-    NSLog(@"viewDidDisappear");
-}
+//- (void)viewDidAppear:(BOOL)animated{
+//    NSLog(@"viewDidAppear");
+//}
+//
+//- (void)viewDidDisappear:(BOOL)animated{
+//    
+//    NSLog(@"viewDidDisappear");
+//}
 
 - (void)pulledToRefresh{
     [self refreshBundlelist];
@@ -65,52 +63,7 @@ NSTimer* refreshTimer;
 }
 
 - (void)refreshBundlelist{
-    ServalManager *m = [ServalManager sharedManager];
-    [m refreshSidProperties];
-    
-    NSDictionary* bundlelist = [ServalManager jsonDictForApiPath:@"/rhizome/bundlelist.json"];
-    
-    if(bundlelist != nil){
-        header = [bundlelist objectForKey:@"header"];
-        
-        NSInteger serviceIndex = [self indexOfField:@"service"];
-        NSInteger senderIndex = [self indexOfField:@"sender"];
-        NSInteger recipientIndex = [self indexOfField:@"recipient"];
-        
-        NSMutableArray *fileRows = [[NSMutableArray alloc] init];
-        NSArray* bundleListRows = [bundlelist objectForKey:@"rows"];
-        
-        for(NSArray* row in bundleListRows){
-            // checks if this entry is a file
-            if (! [[row objectAtIndex:serviceIndex] isEqualToString:@"file"]) {
-                // NSLog(@"not a file");
-                continue;
-            }
-            
-            // if the file is sent by us, we can decrypt it.
-            if ( [[row objectAtIndex:senderIndex] isKindOfClass:[NSString class]] && [[row objectAtIndex:senderIndex] isEqualToString:m.sid] ) {
-                [fileRows addObject:row];
-                // NSLog(@"sent by us");
-                continue;
-            }
-            // if the file is recieved by us, we can decrypt it.
-            if ( [[row objectAtIndex:recipientIndex] isKindOfClass:[NSString class]] && [[row objectAtIndex:recipientIndex] isEqualToString:m.sid] ) {
-                [fileRows addObject:row];
-                // NSLog(@"recieved by us");
-                continue;
-            }
-
-            // if the file has no reciever, its public and we can decrypt it
-            if ( [[row objectAtIndex:recipientIndex] isKindOfClass:[NSNull class]] ) {
-                [fileRows addObject:row];
-                // NSLog(@"public file");
-                continue;
-            }
-        }
-        
-        rows = [fileRows copy];
-    }
-    
+    rhizomeBundles = [ServalManager getRhizomeBundles];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,38 +73,38 @@ NSTimer* refreshTimer;
 
 #pragma mark - rhizome response access methods
 
-- (NSInteger) indexOfField:(NSString*) field {
-    for (int i = 0; i < [header count]; i++){
-        if ( [[header objectAtIndex:i] isEqualToString: field] ){
-            return i;
-        }
-    }
-    return -1;
-}
-
-- (NSInteger) rhizomeFileCount{
-    NSInteger serviceIndex = [self indexOfField:@"service"];
-    NSInteger count = 0;
-    for (NSArray* row in rows) {
-        if ([[row objectAtIndex:serviceIndex] isEqualToString:@"file"]) count++;
-    }
-    return count;
-}
-
-- (id) valueForField:(NSString*) field inRow:(NSInteger) rowNo{
-    NSInteger index = [self indexOfField:field];
-    if (index == -1) return [[NSNull alloc] init];
-
-    NSArray* row = [rows objectAtIndex:rowNo];
-    NSString* value = [row objectAtIndex:index];
-    return value;
-}
-
-- (id) valueForIndex:(NSInteger) index inRow:(NSInteger) rowNo{
-    NSArray* row = [rows objectAtIndex:rowNo];
-    NSString* value = [row objectAtIndex:index];
-    return value;
-}
+//- (NSInteger) indexOfField:(NSString*) field {
+//    for (int i = 0; i < [header count]; i++){
+//        if ( [[header objectAtIndex:i] isEqualToString: field] ){
+//            return i;
+//        }
+//    }
+//    return -1;
+//}
+//
+//- (NSInteger) rhizomeFileCount{
+//    NSInteger serviceIndex = [self indexOfField:@"service"];
+//    NSInteger count = 0;
+//    for (NSArray* row in rows) {
+//        if ([[row objectAtIndex:serviceIndex] isEqualToString:@"file"]) count++;
+//    }
+//    return count;
+//}
+//
+//- (id) valueForField:(NSString*) field inRow:(NSInteger) rowNo{
+//    NSInteger index = [self indexOfField:field];
+//    if (index == -1) return [[NSNull alloc] init];
+//
+//    NSArray* row = [rows objectAtIndex:rowNo];
+//    NSString* value = [row objectAtIndex:index];
+//    return value;
+//}
+//
+//- (id) valueForIndex:(NSInteger) index inRow:(NSInteger) rowNo{
+//    NSArray* row = [rows objectAtIndex:rowNo];
+//    NSString* value = [row objectAtIndex:index];
+//    return value;
+//}
 
 
 #pragma mark - Table view data source
@@ -161,30 +114,29 @@ NSTimer* refreshTimer;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [rows count];
+    return [rhizomeBundles count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RhizomeFilesCell" forIndexPath:indexPath];
 
+    RhizomeBundle *b = [rhizomeBundles objectAtIndex:indexPath.row];
+    
     // set filename
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
-    [nameLabel setText:[self valueForField:@"name" inRow:indexPath.row]];
+    [nameLabel setText: b.name];
     
     // compute & set date
     UILabel *dateLabel = (UILabel *)[cell viewWithTag:101];
-    NSTimeInterval epochTimeInterval = [[self valueForField:@"date" inRow:indexPath.row] doubleValue] / 1000;
-    NSDate *epochNSDate = [[NSDate alloc] initWithTimeIntervalSince1970:epochTimeInterval];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd.MM.yyyy HH:mm"];
-    [dateLabel setText:[dateFormatter stringFromDate:epochNSDate]];
+    [dateLabel setText:[dateFormatter stringFromDate:b.date]];
     
     // set sender information
     UILabel *detailLabel = (UILabel *)[cell viewWithTag:102];
-    NSString *sender = [self valueForField:@"sender" inRow:indexPath.row];
-    if([sender isKindOfClass:[NSNull class]]) [detailLabel setText:@"Public File"];
-    else [detailLabel setText:[NSString stringWithFormat:@"%@", [self valueForField:@"sender" inRow:indexPath.row]]];
+    if([b.sender isKindOfClass:[NSNull class]]) [detailLabel setText:@"Public File"];
+    else [detailLabel setText:[NSString stringWithFormat:@"%@", b.sender]];
     
     return cell;
 }
@@ -196,20 +148,16 @@ NSTimer* refreshTimer;
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+    // enables videos
+    imagePicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *)kUTTypeMovie, (NSString *) kUTTypeImage, nil];
     
-//    imagePicker.allowsEditing = YES;
+    // imagePicker.allowsEditing = YES;
     [self presentViewController:imagePicker animated:YES completion:nil];
     
     
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    if(![info objectForKey:UIImagePickerControllerOriginalImage]) {
-        [picker dismissViewControllerAnimated:YES completion:nil];
-        return;
-    }
-    
     // Get the image name from PhotoKit
     NSURL *pickedImageUrl = [info objectForKey:UIImagePickerControllerReferenceURL];
     NSMutableString *pickedImageName = [[NSMutableString alloc] init];
@@ -227,40 +175,10 @@ NSTimer* refreshTimer;
                        [pickedImageData appendData:imageData];
                    }];
     
-
-    ServalManager *m = [ServalManager sharedManager];
+    NSError *error;
+    NSDictionary *response = [ServalManager addRhizomeFile:pickedImageData withName:pickedImageName error:error];
+    NSLog(@"Image uploaded: %@", response);
     
-    NSString *BoundaryConstant = @"----------V2ymHFg03ehbqgZCaKO6jy";
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
-    
-    NSMutableData *body = [NSMutableData data];
-    // add filename
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"manifest\"; filename=\"%@\"\r\n", pickedImageName] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Type: rhizome/manifest\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    // add binary data
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"payload\"; filename=\"%@\"\r\n", pickedImageName] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:pickedImageData];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSError *error = nil;
-    UNIHTTPJsonResponse *response = [[UNIRest postEntity:^(UNIBodyRequest *request) {
-        [request setHeaders:@{@"Content-Type": contentType}];
-        [request setUrl:@"http://localhost:4110/restful/rhizome/insert"];
-        [request setUsername:[m restUser]];
-        [request setPassword:[m restPassword]];
-        [request setBody:body];
-    }] asJson:&error];
-    
-    if(error){
-        NSLog(@"Rhizome upload failed: %@", error.localizedDescription);
-        return;
-    }
-    
-    NSLog(@"Rhizome upload sucessful for image: %@", pickedImageName);
-
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -307,23 +225,12 @@ NSTimer* refreshTimer;
     if ([segue.identifier isEqualToString:@"showRhizomeFileSegue"]) {
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        RhizomeBundle *b = [rhizomeBundles objectAtIndex:indexPath.row];
         
         RhizomeFileDetailViewController *viewController = segue.destinationViewController;
-        viewController.title = [self valueForField:@"name" inRow:indexPath.row];
+        viewController.title = b.name;
         
-        // create request
-        NSString *authStr = [NSString stringWithFormat:@"%@:%@", servalUser, servalPassword];
-        NSData *authData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64Encoding]];
-        
-        NSString* restfulUrl = [NSString stringWithFormat:@"http://localhost:4110/restful/rhizome/%@/decrypted.bin", [self valueForField:@"id" inRow:indexPath.row]];
-        NSURL *url = [NSURL URLWithString: restfulUrl];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        [request setValue:authValue forHTTPHeaderField:@"Authorization"];
-
-        viewController.request = request;
-        viewController.keys = header;
-        viewController.values = [rows objectAtIndex:indexPath.row];
+        viewController.request = [ServalManager requestForRhizomeBundle:b];
     }
 }
 
