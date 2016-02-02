@@ -19,4 +19,9 @@
     return self;
 }
 
+- (BOOL) hasNewMessages{
+    if(self.read_offset < self.last_message) return YES;
+    else return NO;
+}
+
 @end

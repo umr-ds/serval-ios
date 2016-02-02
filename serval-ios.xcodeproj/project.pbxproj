@@ -31,6 +31,16 @@
 		479084DC1C546B89002DF295 /* ServalStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479084DB1C546B89002DF295 /* ServalStatusViewController.m */; };
 		479084DF1C547291002DF295 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 479084DE1C547291002DF295 /* folder.png */; };
 		479084E11C5472CC002DF295 /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 479084E01C5472CC002DF295 /* edit.png */; };
+		47BE32471C6108C40021C6AD /* Log.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE323D1C6108C40021C6AD /* Log.png */; };
+		47BE32481C6108C40021C6AD /* Log@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE323E1C6108C40021C6AD /* Log@2x.png */; };
+		47BE32491C6108C40021C6AD /* MeshMS.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE323F1C6108C40021C6AD /* MeshMS.png */; };
+		47BE324A1C6108C40021C6AD /* MeshMS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE32401C6108C40021C6AD /* MeshMS@2x.png */; };
+		47BE324B1C6108C40021C6AD /* MeshMS2.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE32411C6108C40021C6AD /* MeshMS2.png */; };
+		47BE324C1C6108C40021C6AD /* MeshMS2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE32421C6108C40021C6AD /* MeshMS2@2x.png */; };
+		47BE324D1C6108C40021C6AD /* RhizomeFiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE32431C6108C40021C6AD /* RhizomeFiles.png */; };
+		47BE324E1C6108C40021C6AD /* RhizomeFiles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE32441C6108C40021C6AD /* RhizomeFiles@2x.png */; };
+		47BE324F1C6108C40021C6AD /* Status.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE32451C6108C40021C6AD /* Status.png */; };
+		47BE32501C6108C40021C6AD /* Status@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47BE32461C6108C40021C6AD /* Status@2x.png */; };
 		47C543861C554C2D00B37EA8 /* KeyValueTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C543851C554C2D00B37EA8 /* KeyValueTableViewController.m */; };
 		47C543931C55639700B37EA8 /* UITabBarMostViewed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C5438D1C55639700B37EA8 /* UITabBarMostViewed@2x.png */; };
 		47C543941C55639700B37EA8 /* UITabBarMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47C5438E1C55639700B37EA8 /* UITabBarMore@2x.png */; };
@@ -223,6 +233,16 @@
 		479084DB1C546B89002DF295 /* ServalStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServalStatusViewController.m; sourceTree = "<group>"; };
 		479084DE1C547291002DF295 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		479084E01C5472CC002DF295 /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		47BE323D1C6108C40021C6AD /* Log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Log.png; sourceTree = "<group>"; };
+		47BE323E1C6108C40021C6AD /* Log@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Log@2x.png"; sourceTree = "<group>"; };
+		47BE323F1C6108C40021C6AD /* MeshMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeshMS.png; sourceTree = "<group>"; };
+		47BE32401C6108C40021C6AD /* MeshMS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeshMS@2x.png"; sourceTree = "<group>"; };
+		47BE32411C6108C40021C6AD /* MeshMS2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeshMS2.png; sourceTree = "<group>"; };
+		47BE32421C6108C40021C6AD /* MeshMS2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MeshMS2@2x.png"; sourceTree = "<group>"; };
+		47BE32431C6108C40021C6AD /* RhizomeFiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RhizomeFiles.png; sourceTree = "<group>"; };
+		47BE32441C6108C40021C6AD /* RhizomeFiles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RhizomeFiles@2x.png"; sourceTree = "<group>"; };
+		47BE32451C6108C40021C6AD /* Status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Status.png; sourceTree = "<group>"; };
+		47BE32461C6108C40021C6AD /* Status@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Status@2x.png"; sourceTree = "<group>"; };
 		47C543841C554C2D00B37EA8 /* KeyValueTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyValueTableViewController.h; sourceTree = "<group>"; };
 		47C543851C554C2D00B37EA8 /* KeyValueTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyValueTableViewController.m; sourceTree = "<group>"; };
 		47C5438D1C55639700B37EA8 /* UITabBarMostViewed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarMostViewed@2x.png"; sourceTree = "<group>"; };
@@ -683,6 +703,23 @@
 				479084DE1C547291002DF295 /* folder.png */,
 			);
 			name = icons;
+			sourceTree = "<group>";
+		};
+		47BE323C1C6108BC0021C6AD /* TabBarIcons */ = {
+			isa = PBXGroup;
+			children = (
+				47BE323D1C6108C40021C6AD /* Log.png */,
+				47BE323E1C6108C40021C6AD /* Log@2x.png */,
+				47BE323F1C6108C40021C6AD /* MeshMS.png */,
+				47BE32401C6108C40021C6AD /* MeshMS@2x.png */,
+				47BE32411C6108C40021C6AD /* MeshMS2.png */,
+				47BE32421C6108C40021C6AD /* MeshMS2@2x.png */,
+				47BE32431C6108C40021C6AD /* RhizomeFiles.png */,
+				47BE32441C6108C40021C6AD /* RhizomeFiles@2x.png */,
+				47BE32451C6108C40021C6AD /* Status.png */,
+				47BE32461C6108C40021C6AD /* Status@2x.png */,
+			);
+			name = TabBarIcons;
 			sourceTree = "<group>";
 		};
 		47E100ED1BFD316F00463F7F /* serval-dna */ = {
@@ -1292,6 +1329,7 @@
 		47E1FCB91BFD2B7700463F7F = {
 			isa = PBXGroup;
 			children = (
+				47BE323C1C6108BC0021C6AD /* TabBarIcons */,
 				479084DD1C547281002DF295 /* icons */,
 				47E100ED1BFD316F00463F7F /* serval-dna */,
 				47E1FCC41BFD2B7700463F7F /* serval-ios */,
@@ -1439,16 +1477,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47BE324D1C6108C40021C6AD /* RhizomeFiles.png in Resources */,
+				47BE324E1C6108C40021C6AD /* RhizomeFiles@2x.png in Resources */,
 				47E1FCD51BFD2B7700463F7F /* LaunchScreen.storyboard in Resources */,
 				479084DF1C547291002DF295 /* folder.png in Resources */,
+				47BE324C1C6108C40021C6AD /* MeshMS2@2x.png in Resources */,
 				47C543951C55639700B37EA8 /* UITabBarBookmarks@2x.png in Resources */,
+				47BE324B1C6108C40021C6AD /* MeshMS2.png in Resources */,
 				47C543981C55639700B37EA8 /* UITabBarBookmarks.png in Resources */,
+				47BE32501C6108C40021C6AD /* Status@2x.png in Resources */,
+				47BE32491C6108C40021C6AD /* MeshMS.png in Resources */,
 				47E1FCD21BFD2B7700463F7F /* Assets.xcassets in Resources */,
 				47E1FCD01BFD2B7700463F7F /* Main.storyboard in Resources */,
+				47BE324A1C6108C40021C6AD /* MeshMS@2x.png in Resources */,
+				47BE324F1C6108C40021C6AD /* Status.png in Resources */,
+				47BE32471C6108C40021C6AD /* Log.png in Resources */,
 				4783A8251C00E50700C6039D /* serval.conf in Resources */,
 				47C543961C55639700B37EA8 /* UITabBarMostViewed.png in Resources */,
 				47C543971C55639700B37EA8 /* UITabBarMore.png in Resources */,
 				47C543941C55639700B37EA8 /* UITabBarMore@2x.png in Resources */,
+				47BE32481C6108C40021C6AD /* Log@2x.png in Resources */,
 				47C543931C55639700B37EA8 /* UITabBarMostViewed@2x.png in Resources */,
 				479084E11C5472CC002DF295 /* edit.png in Resources */,
 			);

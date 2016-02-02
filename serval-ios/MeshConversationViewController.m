@@ -35,6 +35,21 @@
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
     
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        while(true){
+            [NSThread sleepForTimeInterval: 1];
+            if (self.isViewLoaded && self.view.window) {
+                // viewController is visible
+                NSUInteger newMessages = [ServalManager updateMeshConversation:self.conversation];
+                if (newMessages > 0) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
+                        [self finishReceivingMessageAnimated:YES];
+                    });
+                }
+            }
+        }
+    });
 }
 
 #pragma mark - JSQMessagesViewController method overrides
@@ -44,26 +59,12 @@
                   senderId:(NSString *)senderId
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
-    /**
-     *  Sending a message. Your implementation of this method should do *at least* the following:
-     *
-     *  1. Play sound (optional)
-     *  2. Add new id<JSQMessageData> object to your data source
-     *  3. Call `finishSendingMessage`
-     */
-    [JSQSystemSoundPlayer jsq_playMessageSentSound];
-    
+
     NSError *error;
     [ServalManager addText:text toConversation:self.conversation error:error];
+    [ServalManager updateMeshConversation:self.conversation];
     
-    NSArray *allConvs = [ServalManager getMeshConversationList];
-    
-    for(MeshMSConversation *conv in allConvs){
-        if ([conv.their_sid isEqualToString:self.conversation.their_sid]) {
-            self.conversation = conv;
-        }
-    }
-    
+    [JSQSystemSoundPlayer jsq_playMessageSentSound];
     [self finishSendingMessageAnimated:YES];
 }
 

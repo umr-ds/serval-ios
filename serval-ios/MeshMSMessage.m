@@ -12,20 +12,25 @@
 @implementation MeshMSMessage
 
 - (id) initWithRestfulRow:(NSArray*) row forHeader:(NSArray*) header{
+    NSDictionary *restfulMessage = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+    
+    // Just ignore ACKs for now...
+    if ([[restfulMessage objectForKey:@"type"] isEqualToString:@"ACK"]) return nil;
+    
     if(!(self = [super init]))
         return nil;
     
-    NSDictionary *restfulMessage = [[NSDictionary alloc] initWithObjects:row forKeys:header];
-    
-    if ([[restfulMessage objectForKey:@"type"] isEqualToString:@"ACK"]) return nil;
     if ([[restfulMessage objectForKey:@"type"] isEqualToString:@"<"]) _sentByMe = NO;
     else _sentByMe = YES;
     
     self.my_sid = [restfulMessage objectForKey:@"my_sid"];
     self.their_sid = [restfulMessage objectForKey:@"their_sid"];
+    self.offset = [[restfulMessage objectForKey:@"offset"] longValue];
+    self.token = [restfulMessage objectForKey:@"token"];
     self.text = [restfulMessage objectForKey:@"text"];
     self.delivered = [restfulMessage objectForKey:@"delivered"];
     self.read = [restfulMessage objectForKey:@"read"];
+    
     NSTimeInterval epochTimeInterval = [[restfulMessage objectForKey:@"timestamp"] longValue];
     self.timestamp = [[NSDate alloc] initWithTimeIntervalSince1970:epochTimeInterval];
     

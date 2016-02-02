@@ -10,7 +10,7 @@
         <scene sceneID="ENy-DE-MIf">
             <objects>
                 <navigationController id="KCG-11-NiY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rhizome Files" image="UITabBarMostViewed.png" id="fFp-fP-zaw"/>
+                    <tabBarItem key="tabBarItem" title="Rhizome Files" image="RhizomeFiles.png" id="fFp-fP-zaw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C6V-cL-S2R">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -215,7 +215,7 @@
         <scene sceneID="gvj-RC-U3b">
             <objects>
                 <navigationController id="28d-1J-fEu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Status" image="UITabBarMore.png" id="dhX-OI-i21"/>
+                    <tabBarItem key="tabBarItem" title="Status" image="Status.png" id="dhX-OI-i21"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ttS-bV-9UX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -232,7 +232,7 @@
         <scene sceneID="YhN-ko-3Xa">
             <objects>
                 <navigationController id="l8T-Jd-NKc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Log" image="UITabBarBookmarks.png" id="S2s-WN-jS9"/>
+                    <tabBarItem key="tabBarItem" title="Log" image="Log.png" id="S2s-WN-jS9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="O7x-qa-st6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -265,14 +265,14 @@
                                             <rect key="frame" x="15" y="5" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XNs-AC-VfU">
                                             <rect key="frame" x="15" y="25" width="31" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -294,7 +294,7 @@
         <scene sceneID="DJt-fY-Xg7">
             <objects>
                 <navigationController id="eXy-QT-Htz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="MeshMS" id="XXR-Gl-zUJ"/>
+                    <tabBarItem key="tabBarItem" title="MeshMS" image="MeshMS2.png" id="XXR-Gl-zUJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MPW-XR-API">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -351,8 +351,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="UITabBarBookmarks.png" width="27" height="23"/>
-        <image name="UITabBarMore.png" width="23" height="4"/>
-        <image name="UITabBarMostViewed.png" width="23" height="23"/>
+        <image name="Log.png" width="25" height="25"/>
+        <image name="MeshMS2.png" width="25" height="25"/>
+        <image name="RhizomeFiles.png" width="25" height="25"/>
+        <image name="Status.png" width="25" height="25"/>
     </resources>
 </document>

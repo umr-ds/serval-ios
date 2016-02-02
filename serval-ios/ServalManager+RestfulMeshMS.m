@@ -11,7 +11,7 @@
 
 @implementation ServalManager (RestfulMeshMS)
 
-+ (NSArray*) getMeshConversationList{
++ (NSMutableArray*) getMeshConversationList{
     [ServalManager refreshIdentity];
     ServalManager *m = [ServalManager sharedManager];
     NSMutableArray* conversationList = [[NSMutableArray alloc] init];
@@ -26,6 +26,52 @@
     return conversationList;
 }
 
++ (MeshMSConversation*) conversationForSid:(NSString*) their_sid fromConversationList:(NSArray*) conversationList{
+    for(MeshMSConversation* conv in conversationList){
+        if ([conv.their_sid isEqualToString:their_sid]) {
+            return conv;
+        }
+    }
+    return nil;
+}
+
++ (BOOL) updateMeshConversationList:(NSMutableArray*) conversationList{
+    NSMutableArray *newConversationList = [[NSMutableArray alloc] initWithCapacity:[conversationList count]];
+    BOOL updated = NO;
+    
+    // request current conversations restful
+    ServalManager *m = [ServalManager sharedManager];
+    NSDictionary* bundleDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/conversationlist.json", m.firstSid]];
+    NSArray *header = [bundleDict objectForKey:@"header"];
+
+    for(NSArray* row in [bundleDict objectForKey:@"rows"]){
+        NSDictionary *convDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+        
+        // get existing conversation
+        MeshMSConversation *existingConv = [self conversationForSid:[convDict objectForKey:@"their_sid"] fromConversationList:conversationList];
+        if (existingConv){
+            // if conversation existed: update
+            NSUInteger newMessages = [ServalManager updateMeshConversation:existingConv];
+            if (newMessages > 0) updated = YES;
+            [newConversationList addObject:existingConv];
+        } else {
+            // else: add new conversation
+            MeshMSConversation *newConv = [ServalManager getMeshConversationForRestfulRow:row withHeader:header];
+            [newConversationList addObject:newConv];
+            updated = YES;
+        }
+    }
+    
+    NSLock *arrayLock = [[NSLock alloc] init];
+    
+    [arrayLock lock];
+    [conversationList removeAllObjects];
+    [conversationList addObjectsFromArray:newConversationList];
+    [arrayLock unlock];
+    
+    return updated;
+}
+
 + (MeshMSConversation*) getMeshConversationForRestfulRow:(NSArray*) convRow withHeader:(NSArray*) convHeader{
     MeshMSConversation *conv = [[MeshMSConversation alloc] init];
     
@@ -33,6 +79,8 @@
     
     conv.my_sid = [dict objectForKey:@"my_sid"];
     conv.their_sid = [dict objectForKey:@"their_sid"];
+    conv.last_message = [[dict objectForKey:@"last_message"] longValue];
+    conv.read_offset = [[dict objectForKey:@"read_offset"] longValue];
     
     NSDictionary* messageDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/messagelist.json", conv.my_sid, conv.their_sid]];
     NSArray *header = [messageDict objectForKey:@"header"];
@@ -43,6 +91,36 @@
     }
     
     return conv;
+}
+
++ (NSUInteger) updateMeshConversation:(MeshMSConversation*) conv{
+    // Streaming API is not supported yet...
+//    MeshMSMessage *lastMsg = [conv.messages lastObject];
+//    NSDictionary* messageDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/newsince/%@/messagelist.json", conv.my_sid, conv.their_sid, lastMsg.token]];
+//    NSArray *header = [messageDict objectForKey:@"header"];
+//    
+//    for(NSArray* row in [[messageDict objectForKey:@"rows"] reverseObjectEnumerator]){
+//        MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
+//        if (msg) [conv.messages addObject:msg];
+//    }
+    MeshMSMessage *latestMessage = [conv.messages lastObject];
+    NSUInteger oldCount = [conv.messages count];
+    BOOL messageIsNew = NO;
+    
+    NSDictionary* messagesDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/messagelist.json", conv.my_sid, conv.their_sid]];
+    NSArray *header = [messagesDict objectForKey:@"header"];
+    
+    for(NSArray* row in [[messagesDict objectForKey:@"rows"] reverseObjectEnumerator]){
+        NSDictionary *messageDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+        
+        if (messageIsNew) {
+            MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
+            if (msg) [conv.messages addObject:msg];
+        } else if ([[messageDict objectForKey:@"token"] isEqualToString:latestMessage.token]){
+            messageIsNew = YES;
+        }
+    }
+    return [conv.messages count] - oldCount;
 }
 
 + (void) addText:(NSString*) text toConversation:(MeshMSConversation*) conversation error:(NSError*) error{

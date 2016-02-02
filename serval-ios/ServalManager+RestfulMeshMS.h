@@ -12,8 +12,11 @@
 
 @interface ServalManager (RestfulMeshMS)
 
-+ (NSArray*) getMeshConversationList;
++ (NSMutableArray*) getMeshConversationList;
++ (BOOL) updateMeshConversationList:(NSMutableArray*) conversationList;
+
 + (MeshMSConversation*) getMeshConversationForRestfulRow:(NSArray*) convRow withHeader:(NSArray*) convHeader;
 + (void) addText:(NSString*) text toConversation:(MeshMSConversation*) conversation error:(NSError*) error;
++ (NSUInteger) updateMeshConversation:(MeshMSConversation*) conv;
 
 @end
