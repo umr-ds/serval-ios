@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MeshMSMessage.h"
 
 @interface MeshMSConversation : NSObject
 
@@ -15,5 +16,8 @@
 @property (nonatomic, strong) NSString *their_sid;
 @property (nonatomic, assign) NSInteger last_message;
 @property (nonatomic, assign) NSInteger read_offset;
+
+@property (nonatomic, strong) MeshMSMessage *lastRead;
+@property (nonatomic, strong) MeshMSMessage *lastDelivered;
 
 @end

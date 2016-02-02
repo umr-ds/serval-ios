@@ -87,40 +87,45 @@
 
     for(NSArray* row in [[messageDict objectForKey:@"rows"] reverseObjectEnumerator]){
         MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
-        if (msg) [conv.messages addObject:msg];
+        if (msg){
+            [conv.messages addObject:msg];
+            if(msg.isSentByMe && msg.isDelivered) conv.lastDelivered = msg;
+            if(msg.isSentByMe && msg.isRead) conv.lastRead = msg;
+        }
     }
     
     return conv;
 }
 
 + (NSUInteger) updateMeshConversation:(MeshMSConversation*) conv{
-    // Streaming API is not supported yet...
-//    MeshMSMessage *lastMsg = [conv.messages lastObject];
-//    NSDictionary* messageDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/newsince/%@/messagelist.json", conv.my_sid, conv.their_sid, lastMsg.token]];
-//    NSArray *header = [messageDict objectForKey:@"header"];
-//    
-//    for(NSArray* row in [[messageDict objectForKey:@"rows"] reverseObjectEnumerator]){
-//        MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
-//        if (msg) [conv.messages addObject:msg];
-//    }
-    MeshMSMessage *latestMessage = [conv.messages lastObject];
-    NSUInteger oldCount = [conv.messages count];
-    BOOL messageIsNew = NO;
     
     NSDictionary* messagesDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/messagelist.json", conv.my_sid, conv.their_sid]];
     NSArray *header = [messagesDict objectForKey:@"header"];
     
+    NSLock *conversationLock = [[NSLock alloc] init];
+    [conversationLock lock];
+    
+    NSUInteger oldCount = [conv.messages count];
+    NSUInteger pos = 0;
+    
     for(NSArray* row in [[messagesDict objectForKey:@"rows"] reverseObjectEnumerator]){
-        NSDictionary *messageDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
-        
-        if (messageIsNew) {
+        if (pos < oldCount){
+            MeshMSMessage *msg = [conv.messages objectAtIndex:pos];
+            [msg updateWithRestfulRow:row forHeader:header];
+            if (msg.isSentByMe && msg.isDelivered) conv.lastDelivered = msg;
+            if (msg.isSentByMe && msg.isRead) conv.lastRead = msg;
+        } else {
             MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
-            if (msg) [conv.messages addObject:msg];
-        } else if ([[messageDict objectForKey:@"token"] isEqualToString:latestMessage.token]){
-            messageIsNew = YES;
+            if (msg){
+                [conv.messages addObject:msg];
+                if (msg.isSentByMe && msg.isDelivered) conv.lastDelivered = msg;
+                if (msg.isSentByMe && msg.isRead) conv.lastRead = msg;
+            }
         }
+        pos++;
     }
-    return [conv.messages count] - oldCount;
+    [conversationLock unlock];
+    return pos - oldCount;
 }
 
 + (void) addText:(NSString*) text toConversation:(MeshMSConversation*) conversation error:(NSError*) error{

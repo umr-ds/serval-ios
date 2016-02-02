@@ -11,6 +11,8 @@
 #import "MeshMSMessage.h"
 #import "ServalManager+RestfulMeshMS.h"
 
+#define SHOW_TIMESTAMP_MINUTES 10
+
 @interface MeshConversationViewController ()
 
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
@@ -41,12 +43,14 @@
             if (self.isViewLoaded && self.view.window) {
                 // viewController is visible
                 NSUInteger newMessages = [ServalManager updateMeshConversation:self.conversation];
-                if (newMessages > 0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (newMessages > 0) {
                         [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
                         [self finishReceivingMessageAnimated:YES];
-                    });
-                }
+                    } else {
+                        [self finishReceivingMessageAnimated:NO];
+                    }
+                });
             }
         }
     });
@@ -91,8 +95,7 @@
 }
 
 
-# pragma mark - JSQMessagesCollectionViewDataSource required methods
-
+# pragma mark - JSQMessagesCollectionView DataSource required methods
 
 - (NSString *)senderDisplayName{
     return [ServalIdentity readableNameForSid:self.conversation.my_sid];
@@ -102,47 +105,14 @@
     return self.conversation.my_sid;
 }
 
-/**
- *  Asks the data source for the message data that corresponds to the specified item at indexPath in the collectionView.
- *
- *  @param collectionView The collection view requesting this information.
- *  @param indexPath      The index path that specifies the location of the item.
- *
- *  @return An initialized object that conforms to the `JSQMessageData` protocol. You must not return `nil` from this method.
- */
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
     return [self.conversation.messages objectAtIndex:indexPath.row];
 }
 
-/**
- *  Notifies the data source that the item at indexPath has been deleted.
- *  Implementations of this method should remove the item from the data source.
- *
- *  @param collectionView The collection view requesting this information.
- *  @param indexPath      The index path that specifies the location of the item.
- */
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didDeleteMessageAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"Cell at index %li should be deleted.", (long)indexPath.row);
 }
 
-/**
- *  Asks the data source for the message bubble image data that corresponds to the specified message data item at indexPath in the collectionView.
- *
- *  @param collectionView The collection view requesting this information.
- *  @param indexPath      The index path that specifies the location of the item.
- *
- *  @return An initialized object that conforms to the `JSQMessageBubbleImageDataSource` protocol. You may return `nil` from this method if you do not
- *  want the specified item to display a message bubble image.
- *
- *  @discussion It is recommended that you utilize `JSQMessagesBubbleImageFactory` to return valid `JSQMessagesBubbleImage` objects.
- *  However, you may provide your own data source object as long as it conforms to the `JSQMessageBubbleImageDataSource` protocol.
- *
- *  @warning Note that providing your own bubble image data source objects may require additional
- *  configuration of the collectionView layout object, specifically regarding its `messageBubbleTextViewFrameInsets` and `messageBubbleTextViewTextContainerInsets`.
- *
- *  @see JSQMessagesBubbleImageFactory.
- *  @see JSQMessagesCollectionViewFlowLayout.
- */
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     MeshMSMessage *msg = [self.conversation.messages objectAtIndex:indexPath.row];
@@ -154,23 +124,68 @@
     return self.incomingBubbleImageData;
 }
 
-/**
- *  Asks the data source for the avatar image data that corresponds to the specified message data item at indexPath in the collectionView.
- *
- *  @param collectionView The collection view requesting this information.
- *  @param indexPath      The index path that specifies the location of the item.
- *
- *  @return A initialized object that conforms to the `JSQMessageAvatarImageDataSource` protocol. You may return `nil` from this method if you do not want
- *  the specified item to display an avatar.
- *
- *  @discussion It is recommended that you utilize `JSQMessagesAvatarImageFactory` to return valid `JSQMessagesAvatarImage` objects.
- *  However, you may provide your own data source object as long as it conforms to the `JSQMessageAvatarImageDataSource` protocol.
- *
- *  @see JSQMessagesAvatarImageFactory.
- *  @see JSQMessagesCollectionViewFlowLayout.
- */
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
+}
+
+# pragma mark - JSQMessagesCollectionView DataSource optional methods
+
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    MeshMSMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    
+    if (indexPath.item == 0){
+        return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
+    }
+    
+    MeshMSMessage *prevMessage = [self.conversation.messages objectAtIndex:indexPath.item-1];
+    NSTimeInterval secondsBetween = [message.timestamp timeIntervalSinceDate:prevMessage.timestamp];
+    
+    // more than 5 minutes between messages
+    if (secondsBetween > SHOW_TIMESTAMP_MINUTES * 60){
+        return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
+    }
+    
+    return nil;
+}
+
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath {
+    MeshMSMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    
+    if (message == self.conversation.lastRead)
+        return [[NSAttributedString alloc] initWithString:@"Read" attributes:nil];
+    else if (message == self.conversation.lastDelivered)
+        return [[NSAttributedString alloc] initWithString:@"Delivered" attributes:nil];
+
+    return nil;
+}
+
+#pragma mark - Adjusting cell label heights
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    MeshMSMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    
+    if (indexPath.item == 0){
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    }
+    
+    MeshMSMessage *prevMessage = [self.conversation.messages objectAtIndex:indexPath.item-1];
+    NSTimeInterval secondsBetween = [message.timestamp timeIntervalSinceDate:prevMessage.timestamp];
+    
+    // more than 5 minutes between messages
+    if (secondsBetween > SHOW_TIMESTAMP_MINUTES * 60){
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    }
+    
+    return 0.0f;
+}
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath {
+    MeshMSMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    
+    if (message == self.conversation.lastRead) return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    else if (message == self.conversation.lastDelivered) return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    
+    return 0.0f;
 }
 
 

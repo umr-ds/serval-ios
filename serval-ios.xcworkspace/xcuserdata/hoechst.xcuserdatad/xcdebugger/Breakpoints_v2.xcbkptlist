@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "serval-ios/MeshConversationViewController.m"
-            timestampString = "476120821.357773"
+            filePath = "serval-ios/MeshMSMessage.m"
+            timestampString = "476128641.491015"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "-collectionView:messageBubbleImageDataForItemAtIndexPath:"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "-initWithRestfulRow:forHeader:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -22,5 +22,6 @@
 @property (nonatomic, strong) NSDate *timestamp;
 
 - (id) initWithRestfulRow:(NSArray*) row forHeader:(NSArray*) header;
+- (void) updateWithRestfulRow:(NSArray*) row forHeader:(NSArray*) header;
 
 @end

@@ -28,13 +28,20 @@
     self.offset = [[restfulMessage objectForKey:@"offset"] longValue];
     self.token = [restfulMessage objectForKey:@"token"];
     self.text = [restfulMessage objectForKey:@"text"];
-    self.delivered = [restfulMessage objectForKey:@"delivered"];
-    self.read = [restfulMessage objectForKey:@"read"];
+    self.delivered = [[restfulMessage objectForKey:@"delivered"] boolValue];
+    self.read = [[restfulMessage objectForKey:@"read"] boolValue];
     
     NSTimeInterval epochTimeInterval = [[restfulMessage objectForKey:@"timestamp"] longValue];
     self.timestamp = [[NSDate alloc] initWithTimeIntervalSince1970:epochTimeInterval];
     
     return self;
+}
+
+- (void) updateWithRestfulRow:(NSArray*) row forHeader:(NSArray*) header{
+    NSDictionary *restfulMessage = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+
+    self.delivered = [[restfulMessage objectForKey:@"delivered"] boolValue];
+    self.read = [[restfulMessage objectForKey:@"read"] boolValue];
 }
 
 # pragma mark - JSQMessageData Protocol
