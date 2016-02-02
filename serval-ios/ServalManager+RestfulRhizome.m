@@ -24,6 +24,10 @@
         
         // not a file?
         if (![b.service isEqualToString:@"file"]) continue;
+        
+        // no name?
+        if ([b.name length] == 0) continue;
+        
         // sent by us?
         if ([b.sender isKindOfClass:[NSString class]] && [b.sender isEqualToString:m.firstSid]){
             [bundleArray addObject: b];

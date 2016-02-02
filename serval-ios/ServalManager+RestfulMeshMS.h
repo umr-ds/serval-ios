@@ -14,5 +14,6 @@
 
 + (NSArray*) getMeshConversationList;
 + (MeshMSConversation*) getMeshConversationForRestfulRow:(NSArray*) convRow withHeader:(NSArray*) convHeader;
++ (void) addText:(NSString*) text toConversation:(MeshMSConversation*) conversation error:(NSError*) error;
 
 @end

@@ -26,7 +26,6 @@
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self action:@selector(pulledToRefresh) forControlEvents:UIControlEventValueChanged];
     
-
     [self refreshMeshConversations];
     [self.tableView reloadData];
     
@@ -86,7 +85,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MeshConversationViewController *vc = [MeshConversationViewController messagesViewController];
     vc.conversation = [self.meshConversations objectAtIndex:indexPath.row];
+    
+    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 

@@ -9,6 +9,7 @@
 #import "MeshConversationViewController.h"
 #import "ServalIdentity.h"
 #import "MeshMSMessage.h"
+#import "ServalManager+RestfulMeshMS.h"
 
 @interface MeshConversationViewController ()
 
@@ -27,15 +28,65 @@
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
+    // don't allow attachments
+    self.inputToolbar.contentView.leftBarButtonItem = nil;
+    
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
+    
 }
+
+#pragma mark - JSQMessagesViewController method overrides
+
+- (void)didPressSendButton:(UIButton *)button
+           withMessageText:(NSString *)text
+                  senderId:(NSString *)senderId
+         senderDisplayName:(NSString *)senderDisplayName
+                      date:(NSDate *)date {
+    /**
+     *  Sending a message. Your implementation of this method should do *at least* the following:
+     *
+     *  1. Play sound (optional)
+     *  2. Add new id<JSQMessageData> object to your data source
+     *  3. Call `finishSendingMessage`
+     */
+    [JSQSystemSoundPlayer jsq_playMessageSentSound];
+    
+    NSError *error;
+    [ServalManager addText:text toConversation:self.conversation error:error];
+    
+    NSArray *allConvs = [ServalManager getMeshConversationList];
+    
+    for(MeshMSConversation *conv in allConvs){
+        if ([conv.their_sid isEqualToString:self.conversation.their_sid]) {
+            self.conversation = conv;
+        }
+    }
+    
+    [self finishSendingMessageAnimated:YES];
+}
+
 
 # pragma mark - UICollectionViewDataSource methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [self.conversation.messages count];
+}
+
+- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+
+    MeshMSMessage *msg = [self.conversation.messages objectAtIndex:indexPath.row];
+
+    if ([msg isSentByMe]) cell.textView.textColor = [UIColor blackColor];
+    else cell.textView.textColor = [UIColor whiteColor];
+    
+    cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
+                                          NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+    
+    return cell;
 }
 
 
@@ -95,7 +146,7 @@
     
     MeshMSMessage *msg = [self.conversation.messages objectAtIndex:indexPath.row];
     
-    if ([msg.senderId isEqualToString:self.senderId]) {
+    if (msg.isSentByMe) {
         return self.outgoingBubbleImageData;
     }
     

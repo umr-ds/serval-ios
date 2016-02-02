@@ -15,29 +15,19 @@
     if(!(self = [super init]))
         return nil;
     
-    for (int i = 0; i < [header count]; i++){
-        if ([[header objectAtIndex:i] isEqualToString:@"type"]){
-            if ([[header objectAtIndex:i] isEqualToString:@"<"])
-                self.sentByMe = false;
-            if ([[header objectAtIndex:i] isEqualToString:@">"])
-                self.sentByMe = true;
-        }
-        else if ([[header objectAtIndex:i] isEqualToString:@"my_sid"])
-            self.my_sid = [row objectAtIndex:i];
-        else if ([[header objectAtIndex:i] isEqualToString:@"their_sid"])
-            self.their_sid = [row objectAtIndex:i];
-        if ([[header objectAtIndex:i] isEqualToString:@"text"])
-            self.text = [row objectAtIndex:i];
-        else if ([[header objectAtIndex:i] isEqualToString:@"delivered"])
-            self.delivered = [row objectAtIndex:i];
-        else if ([[header objectAtIndex:i] isEqualToString:@"read"])
-            self.read = [row objectAtIndex:i];
-        
-        else if ([[header objectAtIndex:i] isEqualToString:@"timestamp"]) {
-            NSTimeInterval epochTimeInterval = [[row objectAtIndex:i] doubleValue];
-            self.timestamp = [[NSDate alloc] initWithTimeIntervalSince1970:epochTimeInterval]; }
-
-    }
+    NSDictionary *restfulMessage = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+    
+    if ([[restfulMessage objectForKey:@"type"] isEqualToString:@"ACK"]) return nil;
+    if ([[restfulMessage objectForKey:@"type"] isEqualToString:@"<"]) _sentByMe = NO;
+    else _sentByMe = YES;
+    
+    self.my_sid = [restfulMessage objectForKey:@"my_sid"];
+    self.their_sid = [restfulMessage objectForKey:@"their_sid"];
+    self.text = [restfulMessage objectForKey:@"text"];
+    self.delivered = [restfulMessage objectForKey:@"delivered"];
+    self.read = [restfulMessage objectForKey:@"read"];
+    NSTimeInterval epochTimeInterval = [[restfulMessage objectForKey:@"timestamp"] longValue];
+    self.timestamp = [[NSDate alloc] initWithTimeIntervalSince1970:epochTimeInterval];
     
     return self;
 }
@@ -73,6 +63,7 @@
  *  This value is used to cache layout information in the collection view.
  */
 - (NSUInteger)messageHash{
+#warning this is a stub implementation which will crash sooner or later...
     return [self.timestamp timeIntervalSince1970];
 }
 
