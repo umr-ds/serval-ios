@@ -21,7 +21,6 @@
 @property (nonatomic, assign, getter=isRead) BOOL read;
 @property (nonatomic, strong) NSDate *timestamp;
 
-- (id) initWithRestfulRow:(NSArray*) row forHeader:(NSArray*) header;
-- (void) updateWithRestfulRow:(NSArray*) row forHeader:(NSArray*) header;
+- (id) initWithRestfulDict:(NSDictionary*) restfulMessage;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "MeshMSTableViewController.h"
-#import "ServalManager+RestfulMeshMS.h"
 #import "MeshConversationViewController.h"
 
 @interface MeshMSTableViewController ()
@@ -26,35 +25,20 @@
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self action:@selector(pulledToRefresh) forControlEvents:UIControlEventValueChanged];
     
-    self.meshConversations = [ServalManager getMeshConversationList];
+    self.meshConversations = [[NSMutableArray alloc] init];
+    [ServalManager updateMeshConversationList:self.meshConversations delegate:nil async:NO];
     [self.tableView reloadData];
     
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        while(true){
-            [NSThread sleepForTimeInterval: 1];
-            if (self.isViewLoaded && self.view.window) {
-                // viewController is visible
-                [self refreshMeshConversations];
-                dispatch_async(dispatch_get_main_queue(), ^{[self.tableView reloadData];});
-            }
-        }
-    });
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(refreshMeshConversationsAsync) userInfo:nil repeats:YES];
 }
 
-
 - (void)pulledToRefresh{
-    [self refreshMeshConversations];
-    [self.tableView reloadData];
+    [ServalManager updateMeshConversationList:self.meshConversations delegate:nil async:NO];
     [self.refreshControl endRefreshing];
 }
 
-- (void)refreshMeshConversations{
-    [ServalManager updateMeshConversationList:self.meshConversations];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)refreshMeshConversationsAsync{
+    [ServalManager updateMeshConversationList:self.meshConversations delegate:self async:YES];
 }
 
 #pragma mark - Table view data source
@@ -90,5 +74,19 @@
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
+
+
+#pragma mark - MeshConversationListUpdate Delegate
+
+- (void) didUpdateConversationInList{
+    NSLog(@"didUpdateConversationInList");
+    [self.tableView reloadData];
+}
+
+- (void) didAddConversationToList{
+    NSLog(@"didAddConversationToList");
+    [self.tableView reloadData];
+}
+
 
 @end

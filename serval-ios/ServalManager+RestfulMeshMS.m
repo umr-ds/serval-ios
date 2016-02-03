@@ -14,19 +14,21 @@
 + (NSMutableArray*) getMeshConversationList{
     [ServalManager refreshIdentity];
     ServalManager *m = [ServalManager sharedManager];
-    NSMutableArray* conversationList = [[NSMutableArray alloc] init];
+    NSMutableArray* convList = [[NSMutableArray alloc] init];
     
     NSDictionary* bundleDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/conversationlist.json", m.firstSid]];
     NSArray *header = [bundleDict objectForKey:@"header"];
     
     for(NSArray* row in [bundleDict objectForKey:@"rows"]){
-        [conversationList addObject:[ServalManager getMeshConversationForRestfulRow:row withHeader:header]];
+        NSDictionary *convListDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+        MeshMSConversation *conv = [ServalManager getMeshConversationWithMySid:[convListDict objectForKey:@"my_sid"] theirSid:[convListDict objectForKey:@"their_sid"]];
+        [convList addObject:conv];
     }
     
-    return conversationList;
+    return convList;
 }
 
-+ (MeshMSConversation*) conversationForSid:(NSString*) their_sid fromConversationList:(NSArray*) conversationList{
++ (MeshMSConversation*) conversationWithTheirSid:(NSString*) their_sid fromConversationList:(NSArray*) conversationList{
     for(MeshMSConversation* conv in conversationList){
         if ([conv.their_sid isEqualToString:their_sid]) {
             return conv;
@@ -35,97 +37,113 @@
     return nil;
 }
 
-+ (BOOL) updateMeshConversationList:(NSMutableArray*) conversationList{
-    NSMutableArray *newConversationList = [[NSMutableArray alloc] initWithCapacity:[conversationList count]];
-    BOOL updated = NO;
++ (void) updateMeshConversationList:(NSMutableArray*) convList delegate:(id<MeshConversationListUpdateDelegate>) delegate{
+    NSMutableArray *newConvList = [[NSMutableArray alloc] initWithCapacity:[convList count]];
+    BOOL addedConversation = NO;
+    BOOL updatedConversation = NO;
+    // BOOL changedConversationOrder = NO; // can only change, if a conversation changes!
     
-    // request current conversations restful
+    [ServalManager refreshIdentity];
     ServalManager *m = [ServalManager sharedManager];
+    
     NSDictionary* bundleDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/conversationlist.json", m.firstSid]];
     NSArray *header = [bundleDict objectForKey:@"header"];
-
+    
     for(NSArray* row in [bundleDict objectForKey:@"rows"]){
-        NSDictionary *convDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
         
-        // get existing conversation
-        MeshMSConversation *existingConv = [self conversationForSid:[convDict objectForKey:@"their_sid"] fromConversationList:conversationList];
-        if (existingConv){
-            // if conversation existed: update
-            NSUInteger newMessages = [ServalManager updateMeshConversation:existingConv];
-            if (newMessages > 0) updated = YES;
-            [newConversationList addObject:existingConv];
-        } else {
-            // else: add new conversation
-            MeshMSConversation *newConv = [ServalManager getMeshConversationForRestfulRow:row withHeader:header];
-            [newConversationList addObject:newConv];
-            updated = YES;
+        NSDictionary *convListDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+        MeshMSConversation *stubConv = [[MeshMSConversation alloc] initWithConvListDict:convListDict];
+        MeshMSConversation *conv = [ServalManager conversationWithTheirSid:stubConv.their_sid fromConversationList:convList];
+        
+        // if this conversation didn't exist: create full conversation
+        if (!conv){
+            conv = [ServalManager getMeshConversationWithMySid:stubConv.my_sid theirSid:stubConv.their_sid];
+            addedConversation = YES;
         }
+        
+        // if the conversations aren't equal: update conversation (aka. stub is newer)
+        if (![conv isEqualToMeshMSConversation:stubConv]){
+            NSLog(@"Conversation updated!\n    old: %@ \n   stub: %@",conv, stubConv);
+            [ServalManager updateMeshConversation:conv delegate:nil];
+            updatedConversation = YES;
+        }
+        
+        [newConvList addObject: conv];
     }
     
-    NSLock *arrayLock = [[NSLock alloc] init];
-    
-    [arrayLock lock];
-    [conversationList removeAllObjects];
-    [conversationList addObjectsFromArray:newConversationList];
-    [arrayLock unlock];
-    
-    return updated;
+    if (addedConversation ||  updatedConversation){
+        [convList replaceObjectsInRange:NSMakeRange(0, [convList count]) withObjectsFromArray:newConvList];
+        if (!delegate) return;
+        if (addedConversation) {
+            dispatch_async(dispatch_get_main_queue(), ^{ [delegate didAddConversationToList]; });
+            return;
+        }
+        if (updatedConversation) {
+            dispatch_async(dispatch_get_main_queue(), ^{ [delegate didUpdateConversationInList]; });
+            return;
+        }
+    }
 }
 
-+ (MeshMSConversation*) getMeshConversationForRestfulRow:(NSArray*) convRow withHeader:(NSArray*) convHeader{
-    MeshMSConversation *conv = [[MeshMSConversation alloc] init];
-    
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:convRow forKeys:convHeader];
-    
-    conv.my_sid = [dict objectForKey:@"my_sid"];
-    conv.their_sid = [dict objectForKey:@"their_sid"];
-    conv.last_message = [[dict objectForKey:@"last_message"] longValue];
-    conv.read_offset = [[dict objectForKey:@"read_offset"] longValue];
-    
-    NSDictionary* messageDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/messagelist.json", conv.my_sid, conv.their_sid]];
-    NSArray *header = [messageDict objectForKey:@"header"];
++ (void) updateMeshConversationList:(NSMutableArray*) convList delegate:(id<MeshConversationListUpdateDelegate>) delegate async:(BOOL) async{
+    if (async) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [ServalManager updateMeshConversationList:convList delegate:delegate];
+        });
+    } else {
+        [ServalManager updateMeshConversationList:convList delegate:delegate];
+    }
+}
 
-    for(NSArray* row in [[messageDict objectForKey:@"rows"] reverseObjectEnumerator]){
-        MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
-        if (msg){
++ (MeshMSConversation*) getMeshConversationWithMySid:(NSString*) my_sid theirSid:(NSString*) their_sid{
+    MeshMSConversation *conv = [[MeshMSConversation alloc] initWithMySid:my_sid theirSid:their_sid];
+
+    NSDictionary* messageListDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/messagelist.json", my_sid, their_sid]];
+    NSArray *header = [messageListDict objectForKey:@"header"];
+
+    for(NSArray* row in [[messageListDict objectForKey:@"rows"] reverseObjectEnumerator]){
+        NSDictionary* messageDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+        MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulDict:messageDict];
+        if (msg) {
             [conv.messages addObject:msg];
-            if(msg.isSentByMe && msg.isDelivered) conv.lastDelivered = msg;
-            if(msg.isSentByMe && msg.isRead) conv.lastRead = msg;
+            if (!msg.isSentByMe) conv.last_message = msg.offset;
         }
     }
     
+    conv.read_offset = [[messageListDict objectForKey:@"read_offset"] longValue];
+    conv.read_offset = [[messageListDict objectForKey:@"latest_ack_offset"] longValue];
     return conv;
 }
 
-+ (NSUInteger) updateMeshConversation:(MeshMSConversation*) conv{
-    
-    NSDictionary* messagesDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/%@/messagelist.json", conv.my_sid, conv.their_sid]];
-    NSArray *header = [messagesDict objectForKey:@"header"];
-    
-    NSLock *conversationLock = [[NSLock alloc] init];
-    [conversationLock lock];
-    
-    NSUInteger oldCount = [conv.messages count];
-    NSUInteger pos = 0;
-    
-    for(NSArray* row in [[messagesDict objectForKey:@"rows"] reverseObjectEnumerator]){
-        if (pos < oldCount){
-            MeshMSMessage *msg = [conv.messages objectAtIndex:pos];
-            [msg updateWithRestfulRow:row forHeader:header];
-            if (msg.isSentByMe && msg.isDelivered) conv.lastDelivered = msg;
-            if (msg.isSentByMe && msg.isRead) conv.lastRead = msg;
-        } else {
-            MeshMSMessage *msg = [[MeshMSMessage alloc] initWithRestfulRow:row forHeader:header];
-            if (msg){
-                [conv.messages addObject:msg];
-                if (msg.isSentByMe && msg.isDelivered) conv.lastDelivered = msg;
-                if (msg.isSentByMe && msg.isRead) conv.lastRead = msg;
-            }
-        }
-        pos++;
++ (void) updateMeshConversation:(MeshMSConversation*) conv delegate:(id<MeshConversationUpdateDelegate>) delegate{
+    MeshMSConversation *newConv = [ServalManager getMeshConversationWithMySid:conv.my_sid theirSid:conv.their_sid];
+
+    // if there are new messages: call delegate
+    if ([newConv.messages count] > [conv.messages count]) {
+        conv.messages = newConv.messages;
+        conv.read_offset = newConv.read_offset;
+        conv.last_message = newConv.last_message;
+        conv.latest_ack_offset = newConv.latest_ack_offset;
+        if (delegate) [delegate didAddMessagesToConversation];
     }
-    [conversationLock unlock];
-    return pos - oldCount;
+    
+    // if read_offset changed: call delegate
+    if (newConv.read_offset != conv.read_offset){
+        conv.read_offset = newConv.read_offset;
+        if (delegate) [delegate didUpdateConversationOffsets];
+    }
+    
+    // if last_message changed: call delegate
+    if (newConv.last_message != conv.last_message) {
+        conv.last_message = newConv.last_message;
+        if (delegate) [delegate didUpdateConversationOffsets];
+    }
+    
+    // if latest_ack_offset changed: call delegate
+    if (newConv.latest_ack_offset != conv.latest_ack_offset) {
+        conv.latest_ack_offset = newConv.latest_ack_offset;
+        if (delegate) [delegate didUpdateConversationOffsets];
+    }
 }
 
 + (void) addText:(NSString*) text toConversation:(MeshMSConversation*) conversation error:(NSError*) error{
@@ -157,8 +175,7 @@
         [request setBody:body];
     }] asJson:&error];
     
-    return; // response.body.object;
-    
+    return;
 }
 
 @end

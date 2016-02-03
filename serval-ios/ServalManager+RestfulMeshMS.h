@@ -10,13 +10,25 @@
 #import "MeshMSConversation.h"
 #import "MeshMSMessage.h"
 
+@protocol MeshConversationUpdateDelegate <NSObject>
+- (void) didAddMessagesToConversation;
+- (void) didUpdateConversationOffsets;
+@end
+
+@protocol MeshConversationListUpdateDelegate <NSObject>
+- (void) didAddConversationToList;
+- (void) didUpdateConversationInList;
+@end
+
 @interface ServalManager (RestfulMeshMS)
 
-+ (NSMutableArray*) getMeshConversationList;
-+ (BOOL) updateMeshConversationList:(NSMutableArray*) conversationList;
+//+ (NSMutableArray*) getMeshConversationList;
++ (void) updateMeshConversationList:(NSMutableArray*) convList delegate:(id<MeshConversationListUpdateDelegate>) delegate async:(BOOL) async;
 
-+ (MeshMSConversation*) getMeshConversationForRestfulRow:(NSArray*) convRow withHeader:(NSArray*) convHeader;
++ (MeshMSConversation*) getMeshConversationWithMySid:(NSString*) my_sid theirSid:(NSString*) their_sid;
++ (void) updateMeshConversation:(MeshMSConversation*) conv delegate:(id<MeshConversationUpdateDelegate>) delegate;
+
 + (void) addText:(NSString*) text toConversation:(MeshMSConversation*) conversation error:(NSError*) error;
-+ (NSUInteger) updateMeshConversation:(MeshMSConversation*) conv;
+
 
 @end

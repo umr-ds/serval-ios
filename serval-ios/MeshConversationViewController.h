@@ -8,8 +8,9 @@
 
 #import <JSQMessagesViewController/JSQMessages.h>
 #import "MeshMSConversation.h"
+#import "ServalManager+RestfulMeshMS.h"
 
-@interface MeshConversationViewController : JSQMessagesViewController
+@interface MeshConversationViewController : JSQMessagesViewController <MeshConversationUpdateDelegate>
 
 @property (nonatomic, strong) MeshMSConversation* conversation;
 

@@ -14,10 +14,13 @@
 @property (nonatomic, retain) NSMutableArray* messages;
 @property (nonatomic, strong) NSString *my_sid;
 @property (nonatomic, strong) NSString *their_sid;
-@property (nonatomic, assign) NSInteger last_message;
-@property (nonatomic, assign) NSInteger read_offset;
+@property (nonatomic, assign) NSUInteger last_message;
+@property (nonatomic, assign) NSUInteger read_offset;
+@property (nonatomic, assign) NSUInteger latest_ack_offset;
 
-@property (nonatomic, strong) MeshMSMessage *lastRead;
-@property (nonatomic, strong) MeshMSMessage *lastDelivered;
+-(id) initWithMySid:(NSString*) my_sid theirSid:(NSString*) their_sid;
+-(id) initWithConvListDict:(NSDictionary*) convDict;
+
+- (BOOL) isEqualToMeshMSConversation:(MeshMSConversation*) conv;
 
 @end

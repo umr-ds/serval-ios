@@ -9,7 +9,6 @@
 #import "MeshConversationViewController.h"
 #import "ServalIdentity.h"
 #import "MeshMSMessage.h"
-#import "ServalManager+RestfulMeshMS.h"
 
 #define SHOW_TIMESTAMP_MINUTES 10
 
@@ -42,15 +41,21 @@
             [NSThread sleepForTimeInterval: 1];
             if (self.isViewLoaded && self.view.window) {
                 // viewController is visible
-                NSUInteger newMessages = [ServalManager updateMeshConversation:self.conversation];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (newMessages > 0) {
-                        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-                        [self finishReceivingMessageAnimated:YES];
-                    } else {
-                        [self finishReceivingMessageAnimated:NO];
-                    }
-                });
+                [ServalManager updateMeshConversation:self.conversation delegate:self];
+//                
+//                NSInteger newMessages = [ServalManager updateMeshConversation:self.conversation];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    // There are new messages: show!
+//                    if (newMessages > 0) {
+//                        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
+//                        [self finishReceivingMessageAnimated:YES];
+//                    } else if (newMessages == 0){
+//                        // some messages were updated: reload
+//                        [self.collectionView reloadData];
+//                    } else {
+//                        // Nothing changed: continue...
+//                    }
+//                });
             }
         }
     });
@@ -66,7 +71,8 @@
 
     NSError *error;
     [ServalManager addText:text toConversation:self.conversation error:error];
-    [ServalManager updateMeshConversation:self.conversation];
+#warning if self is the delegate, a received sound would be played, as new messages were added; for now: set nil delegate.
+    [ServalManager updateMeshConversation:self.conversation delegate:nil];
     
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     [self finishSendingMessageAnimated:YES];
@@ -149,13 +155,17 @@
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath {
-    MeshMSMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
-    if (message == self.conversation.lastRead)
+    MeshMSMessage *msg = [self.conversation.messages objectAtIndex:indexPath.item];
+    
+    if (!msg.isSentByMe) return nil;
+    
+    if (msg.offset == self.conversation.read_offset)
         return [[NSAttributedString alloc] initWithString:@"Read" attributes:nil];
-    else if (message == self.conversation.lastDelivered)
+    
+    if (msg.offset == self.conversation.latest_ack_offset)
         return [[NSAttributedString alloc] initWithString:@"Delivered" attributes:nil];
-
+    
     return nil;
 }
 
@@ -180,14 +190,32 @@
 }
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath {
-    MeshMSMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
-    if (message == self.conversation.lastRead) return kJSQMessagesCollectionViewCellLabelHeightDefault;
-    else if (message == self.conversation.lastDelivered) return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    MeshMSMessage *msg = [self.conversation.messages objectAtIndex:indexPath.item];
+    
+    if (!msg.isSentByMe) return 0.0f;
+    
+    if (msg.offset == self.conversation.read_offset)
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    
+    if (msg.offset == self.conversation.latest_ack_offset)
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
     
     return 0.0f;
+
 }
 
+#pragma mark - MeshConversationUpdate Delegate
+
+-(void) didUpdateConversationOffsets{
+    NSLog(@"didUpdateConversationOffsets");
+    [self.collectionView reloadData];
+}
+
+-(void) didAddMessagesToConversation{
+    NSLog(@"didAddMessagesToConversation");
+    [self finishReceivingMessageAnimated:YES];
+}
 
 
 

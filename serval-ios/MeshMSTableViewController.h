@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ServalManager+RestfulMeshMS.h"
 
-@interface MeshMSTableViewController : UITableViewController
+@interface MeshMSTableViewController : UITableViewController <MeshConversationListUpdateDelegate>
 
 @end
