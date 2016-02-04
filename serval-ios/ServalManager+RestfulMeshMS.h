@@ -26,7 +26,8 @@
 + (void) updateMeshConversationList:(NSMutableArray*) convList delegate:(id<MeshConversationListUpdateDelegate>) delegate async:(BOOL) async;
 
 + (MeshMSConversation*) getMeshConversationWithMySid:(NSString*) my_sid theirSid:(NSString*) their_sid;
-+ (void) updateMeshConversation:(MeshMSConversation*) conv delegate:(id<MeshConversationUpdateDelegate>) delegate;
+//+ (void) updateMeshConversation:(MeshMSConversation*) conv delegate:(id<MeshConversationUpdateDelegate>) delegate;
++ (void) updateMeshConversation:(MeshMSConversation*) conv delegate:(id<MeshConversationUpdateDelegate>) delegate async:(BOOL) async;
 
 + (void) addText:(NSString*) text toConversation:(MeshMSConversation*) conversation error:(NSError*) error;
 

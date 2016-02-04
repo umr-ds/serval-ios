@@ -11,22 +11,34 @@
 
 @implementation ServalManager (RestfulMeshMS)
 
-+ (NSMutableArray*) getMeshConversationList{
-    [ServalManager refreshIdentity];
-    ServalManager *m = [ServalManager sharedManager];
-    NSMutableArray* convList = [[NSMutableArray alloc] init];
-    
-    NSDictionary* bundleDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/conversationlist.json", m.firstSid]];
-    NSArray *header = [bundleDict objectForKey:@"header"];
-    
-    for(NSArray* row in [bundleDict objectForKey:@"rows"]){
-        NSDictionary *convListDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
-        MeshMSConversation *conv = [ServalManager getMeshConversationWithMySid:[convListDict objectForKey:@"my_sid"] theirSid:[convListDict objectForKey:@"their_sid"]];
-        [convList addObject:conv];
+#pragma mark - MeshMS conversation list methods
+
++ (void) updateMeshConversationList:(NSMutableArray*) convList delegate:(id<MeshConversationListUpdateDelegate>) delegate async:(BOOL) async{
+    if (async) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [ServalManager updateMeshConversationList:convList delegate:delegate];
+        });
+    } else {
+        [ServalManager updateMeshConversationList:convList delegate:delegate];
     }
-    
-    return convList;
 }
+
+//+ (NSMutableArray*) getMeshConversationList{
+//    [ServalManager refreshIdentity];
+//    ServalManager *m = [ServalManager sharedManager];
+//    NSMutableArray* convList = [[NSMutableArray alloc] init];
+//    
+//    NSDictionary* bundleDict = [ServalManager jsonDictForApiPath:[NSString stringWithFormat:@"/meshms/%@/conversationlist.json", m.firstSid]];
+//    NSArray *header = [bundleDict objectForKey:@"header"];
+//    
+//    for(NSArray* row in [bundleDict objectForKey:@"rows"]){
+//        NSDictionary *convListDict = [[NSDictionary alloc] initWithObjects:row forKeys:header];
+//        MeshMSConversation *conv = [ServalManager getMeshConversationWithMySid:[convListDict objectForKey:@"my_sid"] theirSid:[convListDict objectForKey:@"their_sid"]];
+//        [convList addObject:conv];
+//    }
+//    
+//    return convList;
+//}
 
 + (MeshMSConversation*) conversationWithTheirSid:(NSString*) their_sid fromConversationList:(NSArray*) conversationList{
     for(MeshMSConversation* conv in conversationList){
@@ -74,6 +86,8 @@
     if (addedConversation ||  updatedConversation){
         [convList replaceObjectsInRange:NSMakeRange(0, [convList count]) withObjectsFromArray:newConvList];
         if (!delegate) return;
+        
+        // delegate methods should always be executed on the main thread
         if (addedConversation) {
             dispatch_async(dispatch_get_main_queue(), ^{ [delegate didAddConversationToList]; });
             return;
@@ -85,15 +99,8 @@
     }
 }
 
-+ (void) updateMeshConversationList:(NSMutableArray*) convList delegate:(id<MeshConversationListUpdateDelegate>) delegate async:(BOOL) async{
-    if (async) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [ServalManager updateMeshConversationList:convList delegate:delegate];
-        });
-    } else {
-        [ServalManager updateMeshConversationList:convList delegate:delegate];
-    }
-}
+
+#pragma mark - MeshMS conversation methods
 
 + (MeshMSConversation*) getMeshConversationWithMySid:(NSString*) my_sid theirSid:(NSString*) their_sid{
     MeshMSConversation *conv = [[MeshMSConversation alloc] initWithMySid:my_sid theirSid:their_sid];
@@ -111,8 +118,19 @@
     }
     
     conv.read_offset = [[messageListDict objectForKey:@"read_offset"] longValue];
-    conv.read_offset = [[messageListDict objectForKey:@"latest_ack_offset"] longValue];
+    conv.latest_ack_offset = [[messageListDict objectForKey:@"latest_ack_offset"] longValue];
     return conv;
+}
+
++ (void) updateMeshConversation:(MeshMSConversation*) conv delegate:(id<MeshConversationUpdateDelegate>) delegate async:(BOOL) async{
+    if (async) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [ServalManager updateMeshConversation:conv delegate:delegate];
+            
+        });
+    } else {
+        [ServalManager updateMeshConversation:conv delegate:delegate];
+    }
 }
 
 + (void) updateMeshConversation:(MeshMSConversation*) conv delegate:(id<MeshConversationUpdateDelegate>) delegate{
@@ -120,29 +138,30 @@
 
     // if there are new messages: call delegate
     if ([newConv.messages count] > [conv.messages count]) {
-        conv.messages = newConv.messages;
-        conv.read_offset = newConv.read_offset;
-        conv.last_message = newConv.last_message;
-        conv.latest_ack_offset = newConv.latest_ack_offset;
-        if (delegate) [delegate didAddMessagesToConversation];
+        [conv updateWithConversation:newConv];
+        if (delegate) dispatch_async(dispatch_get_main_queue(), ^{ [delegate didAddMessagesToConversation]; });
+        return;
     }
     
     // if read_offset changed: call delegate
     if (newConv.read_offset != conv.read_offset){
-        conv.read_offset = newConv.read_offset;
-        if (delegate) [delegate didUpdateConversationOffsets];
+        [conv updateWithConversation:newConv];
+        if (delegate) dispatch_async(dispatch_get_main_queue(), ^{ [delegate didUpdateConversationOffsets]; });
+        return;
     }
     
     // if last_message changed: call delegate
     if (newConv.last_message != conv.last_message) {
-        conv.last_message = newConv.last_message;
-        if (delegate) [delegate didUpdateConversationOffsets];
+        [conv updateWithConversation:newConv];
+        if (delegate) dispatch_async(dispatch_get_main_queue(), ^{ [delegate didUpdateConversationOffsets]; });
+        return;
     }
     
     // if latest_ack_offset changed: call delegate
     if (newConv.latest_ack_offset != conv.latest_ack_offset) {
-        conv.latest_ack_offset = newConv.latest_ack_offset;
-        if (delegate) [delegate didUpdateConversationOffsets];
+        [conv updateWithConversation:newConv];
+        if (delegate) dispatch_async(dispatch_get_main_queue(), ^{ [delegate didUpdateConversationOffsets]; });
+        return;
     }
 }
 

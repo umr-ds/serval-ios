@@ -12,10 +12,13 @@
 @interface MeshMSTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *meshConversations;
+@property (nonatomic, strong) NSTimer* refreshTimer;
 
 @end
 
 @implementation MeshMSTableViewController
+
+# pragma mark - uiview lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,16 +31,38 @@
     self.meshConversations = [[NSMutableArray alloc] init];
     [ServalManager updateMeshConversationList:self.meshConversations delegate:nil async:NO];
     [self.tableView reloadData];
-    
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(refreshMeshConversationsAsync) userInfo:nil repeats:YES];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+    [self startAutoRefresh];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self stopAutoRefresh];
+}
+
+# pragma mark - refresh helper methods
 
 - (void)pulledToRefresh{
     [ServalManager updateMeshConversationList:self.meshConversations delegate:nil async:NO];
+    [self.tableView reloadData];
     [self.refreshControl endRefreshing];
 }
 
+- (void)startAutoRefresh {
+    if ([self.refreshTimer isValid]) [self.refreshTimer invalidate];
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(refreshMeshConversationsAsync) userInfo:nil repeats:YES];
+}
+
+- (void)stopAutoRefresh {
+    [self.refreshTimer invalidate];
+}
+
 - (void)refreshMeshConversationsAsync{
+    NSLog(@"Refreshing async...");
     [ServalManager updateMeshConversationList:self.meshConversations delegate:self async:YES];
 }
 
@@ -73,6 +98,8 @@
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

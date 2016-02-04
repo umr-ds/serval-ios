@@ -54,4 +54,14 @@
             self.last_message];
 }
 
+- (void) updateWithConversation:(MeshMSConversation*) conv {
+    
+    self.my_sid = conv.my_sid;
+    self.their_sid = conv.their_sid;
+    self.read_offset = conv.read_offset;
+    self.last_message = conv.last_message;
+    self.latest_ack_offset = conv.latest_ack_offset;
+    self.messages = conv.messages;
+}
+
 @end

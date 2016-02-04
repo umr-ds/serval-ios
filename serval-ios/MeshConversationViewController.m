@@ -16,10 +16,13 @@
 
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
+@property (nonatomic, strong) NSTimer* refreshTimer;
 
 @end
 
 @implementation MeshConversationViewController
+
+#pragma mark - UIView cycle methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,30 +38,31 @@
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        while(true){
-            [NSThread sleepForTimeInterval: 1];
-            if (self.isViewLoaded && self.view.window) {
-                // viewController is visible
-                [ServalManager updateMeshConversation:self.conversation delegate:self];
-//                
-//                NSInteger newMessages = [ServalManager updateMeshConversation:self.conversation];
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    // There are new messages: show!
-//                    if (newMessages > 0) {
-//                        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-//                        [self finishReceivingMessageAnimated:YES];
-//                    } else if (newMessages == 0){
-//                        // some messages were updated: reload
-//                        [self.collectionView reloadData];
-//                    } else {
-//                        // Nothing changed: continue...
-//                    }
-//                });
-            }
-        }
-    });
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self startAutoRefresh];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self stopAutoRefresh];
+}
+
+#pragma mark - Refresh methods
+
+- (void)startAutoRefresh {
+    if ([self.refreshTimer isValid]) [self.refreshTimer invalidate];
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(refreshMeshConversationAsync) userInfo:nil repeats:YES];
+}
+
+- (void)stopAutoRefresh {
+    [self.refreshTimer invalidate];
+}
+
+- (void) refreshMeshConversationAsync{
+    [ServalManager updateMeshConversation:self.conversation delegate:self async:YES];
 }
 
 #pragma mark - JSQMessagesViewController method overrides
@@ -71,8 +75,7 @@
 
     NSError *error;
     [ServalManager addText:text toConversation:self.conversation error:error];
-#warning if self is the delegate, a received sound would be played, as new messages were added; for now: set nil delegate.
-    [ServalManager updateMeshConversation:self.conversation delegate:nil];
+    [ServalManager updateMeshConversation:self.conversation delegate:nil async:NO];
     
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     [self finishSendingMessageAnimated:YES];
@@ -155,7 +158,6 @@
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath {
-    
     MeshMSMessage *msg = [self.conversation.messages objectAtIndex:indexPath.item];
     
     if (!msg.isSentByMe) return nil;
@@ -214,6 +216,7 @@
 
 -(void) didAddMessagesToConversation{
     NSLog(@"didAddMessagesToConversation");
+    [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
     [self finishReceivingMessageAnimated:YES];
 }
 

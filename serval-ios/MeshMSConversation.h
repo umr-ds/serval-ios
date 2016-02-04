@@ -23,4 +23,6 @@
 
 - (BOOL) isEqualToMeshMSConversation:(MeshMSConversation*) conv;
 
+- (void) updateWithConversation:(MeshMSConversation*) conv;
+
 @end
