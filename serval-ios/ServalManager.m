@@ -8,15 +8,16 @@
 
 #import "ServalManager.h"
 #import <UNIRest.h>
+#import <libserval/serval.h>
+#import <libserval/conf.h>
 
 // copied from serval_main.c
 #include <signal.h>
-#include "serval.h"
-#include "conf.h"
 
 @interface ServalManager ()
 
 @property (nonatomic, strong) NSThread* servaldThread;
+@property (nonatomic, strong) NSString* instancePath;
 @property (nonatomic, strong) NSString* confPath;
 
 @end
@@ -37,7 +38,11 @@
 - (id) init {
     if(!(self = [super init]))
         return nil;
-    self.confPath = [NSString stringWithFormat:@"%s/serval.conf", INSTANCE_PATH];
+    
+    self.instancePath = [NSString stringWithFormat:@"%@/Library",NSHomeDirectory()];
+    setenv("SERVALINSTANCE_PATH", [self.instancePath cStringUsingEncoding:NSASCIIStringEncoding], 1);
+    
+    self.confPath = [NSString stringWithFormat:@"%@/serval.conf", self.instancePath];
     self.restUser = @"ios";
     self.restPassword = @"password";
     return self;
@@ -76,8 +81,8 @@
 
 - (void) wipeLogs {
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSString* logFilePath =[NSString stringWithFormat:@"%s/serval.log", INSTANCE_PATH];
-    NSString* logFolderPath =[NSString stringWithFormat:@"%s/log/", INSTANCE_PATH];
+    NSString* logFilePath =[NSString stringWithFormat:@"%@/serval.log", self.instancePath];
+    NSString* logFolderPath =[NSString stringWithFormat:@"%@/log/", self.instancePath];
     
     NSError *error;
     BOOL success = [fm removeItemAtPath:logFilePath error:&error];
@@ -90,7 +95,7 @@
 
 - (void) wipeRhizomeDB {
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSString* instancePath = [NSString stringWithFormat:@"%s/rhizome.db", INSTANCE_PATH];
+    NSString* instancePath = [NSString stringWithFormat:@"%@/rhizome.db", self.instancePath];
     
     NSError *error;
     BOOL success = [fm removeItemAtPath:instancePath error:&error];
@@ -101,7 +106,8 @@
 
 - (BOOL) setConfigOption:(NSString*) option toValue:(NSString*) value{
     if([self.servaldThread isExecuting]){
-        [self servaldCommand: @[@"config", @"set", option, value]];
+        [self servaldCommand:@[@"help"]];
+//        [self servaldCommand: @[@"config", @"set", option, value]];
         return TRUE;
     }
     return FALSE;
@@ -124,12 +130,14 @@
     [m wipeLogs];
 //    [m wipeRhizomeDB];
     
+    NSLog(@"%@", m.instancePath);
+    
     
     if(m.servaldThread == nil || [m.servaldThread isCancelled] || [m.servaldThread isFinished]){
         // start thread
         m.servaldThread = [m dispatchServalCommand:@[@"start",@"foreground"]];
         
-        NSString* logFilePath =[NSString stringWithFormat:@"%s/serval.log", INSTANCE_PATH];
+        NSString* logFilePath =[NSString stringWithFormat:@"%@/serval.log", m.instancePath];
         int i = 0;
         // busy-wait until file logfile exists
         while (![[NSFileManager defaultManager] fileExistsAtPath:logFilePath] && i < 10){
@@ -165,6 +173,8 @@
 - (NSThread*) dispatchServalCommand:(NSArray*) ns_argv{
     NSThread* servalThread = [[NSThread alloc] initWithTarget:self selector:@selector(servaldCommand:) object:ns_argv];
     [servalThread start];
+    
+    [NSThread sleepForTimeInterval:1];
     return servalThread;
 }
 
@@ -182,7 +192,7 @@ char crash_handler_clue[1024] = "no clue";
         strncpy(argv[argc], [arg UTF8String], [arg length]);
         argc++;
     }
-
+    
     srandomdev();
     cf_init();
     parseCommandLine(NULL, argv[0], argc - 1, (const char*const*)&argv[1]);

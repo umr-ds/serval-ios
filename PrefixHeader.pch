@@ -1,20 +1,8 @@
 //
-//  PrefixHeader.pch
-//  serval-ios
+//  Prefix header
 //
-//  Created by Jonas Höchst on 18.11.15.
-//  Copyright © 2015 Jonas Höchst. All rights reserved.
+//  The contents of this file are implicitly included at the beginning of every source file.
 //
 
-#ifndef PrefixHeader_pch
-#define PrefixHeader_pch
-
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-
-#include "confdefs.h"
-#include "paths-helper.h"
+#include <libserval/confdefs.h>
 #include <inttypes.h>
-
-
-#endif /* PrefixHeader_pch */

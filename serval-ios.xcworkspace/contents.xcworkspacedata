@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:serval-dna/xcode/libserval.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:serval-ios.xcodeproj">
    </FileRef>
    <FileRef
