@@ -1451,6 +1451,7 @@
 				TargetAttributes = {
 					47E1FCC11BFD2B7700463F7F = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = S2M4R3QVMR;
 					};
 				};
 			};
@@ -1868,6 +1869,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1899,6 +1902,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.jonashoechst.serval-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "External/serval-dna/nacl/include External/serval-dna External/serval-dna/sqlite-amalgamation-3070900 External/serval-dna/nacl/src/** $(inherited)";
 				USE_HEADERMAP = YES;
 			};
@@ -1912,6 +1916,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1943,6 +1949,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.jonashoechst.serval-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "External/serval-dna/nacl/include External/serval-dna External/serval-dna/sqlite-amalgamation-3070900 External/serval-dna/nacl/src/** $(inherited)";
 				USE_HEADERMAP = YES;
 			};
