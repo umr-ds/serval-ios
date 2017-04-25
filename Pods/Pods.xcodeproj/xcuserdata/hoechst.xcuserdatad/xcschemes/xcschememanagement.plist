@@ -24,20 +24,30 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>libsodium.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>2BBB07671F2703B4D3902EC0E62B2E33</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2EFEDBB649146422B0A076290AB959DE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5ECEF9F0FE9688466518780528EA33D1</key>
+		<key>4522FA9680D0DCE76DB6910084FEBC91</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7A580D4552C6766EDF71D654993DD5A8</key>
+		<key>AF8679026F533A2A03A38DC6C66E1B5C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

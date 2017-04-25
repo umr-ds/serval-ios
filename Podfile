@@ -6,5 +6,6 @@
 target 'serval-ios' do
   pod 'Unirest'
   pod 'JSQMessagesViewController'
+  pod 'libsodium'
 end
 

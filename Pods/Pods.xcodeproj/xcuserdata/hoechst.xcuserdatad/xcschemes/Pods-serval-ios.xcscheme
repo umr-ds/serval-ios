@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A2419196395957179D82E0C8'
+               BlueprintIdentifier = 'AF8679026F533A2A03A38DC6C66E1B5C'
                BlueprintName = 'Pods-serval-ios'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-serval-ios.a'>
