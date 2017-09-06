@@ -9,11 +9,8 @@
 #include "crypto_onetimeauth_poly1305.h"
 #include "crypto_secretbox.h"
 #include "crypto_stream_salsa20.h"
+#include "private/common.h"
 #include "utils.h"
-
-static const unsigned char sigma[16] = {
-    'e', 'x', 'p', 'a', 'n', 'd', ' ', '3', '2', '-', 'b', 'y', 't', 'e', ' ', 'k'
-};
 
 int
 crypto_secretbox_detached(unsigned char *c, unsigned char *mac,
@@ -27,7 +24,7 @@ crypto_secretbox_detached(unsigned char *c, unsigned char *mac,
     unsigned long long                i;
     unsigned long long                mlen0;
 
-    crypto_core_hsalsa20(subkey, n, k, sigma);
+    crypto_core_hsalsa20(subkey, n, k, NULL);
 
     if (((uintptr_t) c >= (uintptr_t) m &&
          (uintptr_t) c - (uintptr_t) m < mlen) ||
@@ -37,7 +34,7 @@ crypto_secretbox_detached(unsigned char *c, unsigned char *mac,
         m = c;
     }
     memset(block0, 0U, crypto_secretbox_ZEROBYTES);
-    (void) sizeof(int[64U >= crypto_secretbox_ZEROBYTES ? 1 : -1]);
+    COMPILER_ASSERT(64U >= crypto_secretbox_ZEROBYTES);
     mlen0 = mlen;
     if (mlen0 > 64U - crypto_secretbox_ZEROBYTES) {
         mlen0 = 64U - crypto_secretbox_ZEROBYTES;
@@ -48,11 +45,13 @@ crypto_secretbox_detached(unsigned char *c, unsigned char *mac,
     crypto_stream_salsa20_xor(block0, block0,
                               mlen0 + crypto_secretbox_ZEROBYTES,
                               n + 16, subkey);
-    (void) sizeof(int[crypto_secretbox_ZEROBYTES >=
-                      crypto_onetimeauth_poly1305_KEYBYTES ? 1 : -1]);
+    COMPILER_ASSERT(crypto_secretbox_ZEROBYTES >=
+                    crypto_onetimeauth_poly1305_KEYBYTES);
     crypto_onetimeauth_poly1305_init(&state, block0);
 
-    memcpy(c, block0 + crypto_secretbox_ZEROBYTES, mlen0);
+    for (i = 0U; i < mlen0; i++) {
+        c[i] = block0[crypto_secretbox_ZEROBYTES + i];
+    }
     sodium_memzero(block0, sizeof block0);
     if (mlen > mlen0) {
         crypto_stream_salsa20_xor_ic(c + mlen0, m + mlen0, mlen - mlen0,
@@ -91,12 +90,15 @@ crypto_secretbox_open_detached(unsigned char *m, const unsigned char *c,
     unsigned long long i;
     unsigned long long mlen0;
 
-    crypto_core_hsalsa20(subkey, n, k, sigma);
+    crypto_core_hsalsa20(subkey, n, k, NULL);
     crypto_stream_salsa20(block0, crypto_stream_salsa20_KEYBYTES,
                           n + 16, subkey);
     if (crypto_onetimeauth_poly1305_verify(mac, c, clen, block0) != 0) {
         sodium_memzero(subkey, sizeof subkey);
         return -1;
+    }
+    if (m == NULL) {
+        return 0;
     }
     if (((uintptr_t) c >= (uintptr_t) m &&
          (uintptr_t) c - (uintptr_t) m < clen) ||
@@ -109,7 +111,9 @@ crypto_secretbox_open_detached(unsigned char *m, const unsigned char *c,
     if (mlen0 > 64U - crypto_secretbox_ZEROBYTES) {
         mlen0 = 64U - crypto_secretbox_ZEROBYTES;
     }
-    memcpy(block0 + crypto_secretbox_ZEROBYTES, c, mlen0);
+    for (i = 0U; i < mlen0; i++) {
+        block0[crypto_secretbox_ZEROBYTES + i] = c[i];
+    }
     crypto_stream_salsa20_xor(block0, block0,
                               crypto_secretbox_ZEROBYTES + mlen0,
                               n + 16, subkey);

@@ -5,6 +5,7 @@
 
 #include "crypto_box.h"
 #include "crypto_secretbox.h"
+#include "private/common.h"
 #include "utils.h"
 
 int
@@ -24,9 +25,10 @@ crypto_box_detached(unsigned char *c, unsigned char *mac,
     unsigned char k[crypto_box_BEFORENMBYTES];
     int           ret;
 
-    (void) sizeof(int[crypto_box_BEFORENMBYTES >=
-                      crypto_secretbox_KEYBYTES ? 1 : -1]);
-    crypto_box_beforenm(k, pk, sk);
+    COMPILER_ASSERT(crypto_box_BEFORENMBYTES >= crypto_secretbox_KEYBYTES);
+    if (crypto_box_beforenm(k, pk, sk) != 0) {
+        return -1;
+    }
     ret = crypto_box_detached_afternm(c, mac, m, mlen, n, k);
     sodium_memzero(k, sizeof k);
 
@@ -60,7 +62,8 @@ crypto_box_easy(unsigned char *c, const unsigned char *m,
 int
 crypto_box_open_detached_afternm(unsigned char *m, const unsigned char *c,
                                  const unsigned char *mac,
-                                 unsigned long long clen, const unsigned char *n,
+                                 unsigned long long clen,
+                                 const unsigned char *n,
                                  const unsigned char *k)
 {
     return crypto_secretbox_open_detached(m, c, mac, clen, n, k);
@@ -75,7 +78,9 @@ crypto_box_open_detached(unsigned char *m, const unsigned char *c,
     unsigned char k[crypto_box_BEFORENMBYTES];
     int           ret;
 
-    crypto_box_beforenm(k, pk, sk);
+    if (crypto_box_beforenm(k, pk, sk) != 0) {
+        return -1;
+    }
     ret = crypto_box_open_detached_afternm(m, c, mac, clen, n, k);
     sodium_memzero(k, sizeof k);
 
